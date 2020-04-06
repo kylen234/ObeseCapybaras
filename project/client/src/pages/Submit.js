@@ -1,5 +1,8 @@
 import React, { Component, ReactDOM } from 'react';
+import { Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
+
 class TextEval extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {value: ''};
@@ -13,23 +16,47 @@ class TextEval extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        alert('Evaluation submitted: ' + this.state.value);
         event.preventDefault();
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <div>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <a href="#">RequestView</a>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>
+                        Submit
+                    </BreadcrumbItem>
+                </Breadcrumb>
+                <h1 align={"center"}>
+            <form
+                onSubmit={this.handleSubmit}
+                align={"center"}>  
+                <h2 align={"center"}>
                 <label>
+                    <h3 align={"center"}>
                     Evaluation:
-                    <textarea
-                        value={this.state.value}
-                        onChange={this.handleChange}>
-				  </textarea>
+                    </h3>
+                    
+                    <textarea 
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    align={"center"}>   
+                    </textarea>
                 </label>
-                <button type="submit" value="Submit">Submit Evaluation
+                </h2>
+                <button 
+                    type="submit"
+                    value="Submit"
+                    align={"center"}>
+                    Submit
                 </button>
             </form>
+            </h1>
+            </div>
         );
     }
 }
