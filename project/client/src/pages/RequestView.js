@@ -33,8 +33,8 @@ const RequestView = (props) => (
                 </Form.Group>
             </Form>
             <div align={"center"}>
-                <Button variant="outline-success" align={"center"}>Success</Button>{' '}
-                <Button variant="outline-danger" align={"center"}>Danger</Button>{' '}
+                <Button variant="outline-success" align={"center"}>Submit Request</Button>{' '}
+                <Button variant="outline-danger" align={"center"}>Reject Request</Button>{' '}
             </div>
         </div>
     </div>
