@@ -1,25 +1,27 @@
 // Learn more or give us feedback
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import SubmitView from './pages/Submit';
-import RequestView from "./pages/RequestView";
+import {Submit, RequestReviews} from './pages';
+import { NavBar } from './components'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <Route exact path='/' component={RequestView} />
-                    <Route path='/submit-view' component={SubmitView} />
+                <NavBar />
+                <Switch>
+                    <Route exact path='/' component={RequestReviews} />
+                    <Route path='/submit-view' component={Submit} />
                     { /*
                     <Route path='/create-book' component={CreateBook} />
                     <Route path='/edit-book/:id' component={UpdateBookInfo} />
                     <Route path='/show-book/:id' component={ShowBookDetails} />
                     */}
-                </div>
+                </Switch>
             </Router>
         );
     }

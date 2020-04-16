@@ -1,41 +1,10 @@
-// Learn more or give us feedback
-
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
-
-import SubmitView from './pages/Submit';
-import RequestView from "./pages/RequestView";
-
-class App extends Component {
-    render() {
-        return (
-            <Router>
-                <div>
-                    <Route exact path='/' component={RequestView} />
-                    <Route path='/submit-view' component={SubmitView} />
-                    { /*
-                    <Route path='/create-book' component={CreateBook} />
-                    <Route path='/edit-book/:id' component={UpdateBookInfo} />
-                    <Route path='/show-book/:id' component={ShowBookDetails} />
-                    */}
-                </div>
-            </Router>
-        );
-    }
-}
-
-export default App;
-
-/*
-import { CardStack, Card } from './components';
-
+import { CardStack, Card } from '../components';
 import React from 'react';
-import people from './components/people';
+import people from '../components/people';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const App = (props) => (
+const RequestReviews = (props) => (
     <div>
         <ul>
             <h1 align={"center"}>View Requests!</h1>
@@ -64,8 +33,8 @@ const App = (props) => (
                 </Form.Group>
             </Form>
             <div align={"center"}>
-                <Button variant="outline-success" align={"center"}>Success</Button>{' '}
-                <Button variant="outline-danger" align={"center"}>Danger</Button>{' '}
+                <Button variant="outline-success" align={"center"}>Submit Request</Button>{' '}
+                
             </div>
         </div>
     </div>
@@ -191,6 +160,4 @@ const styles = {
     },
 };
 
-export default App;
-
- */
+export default RequestReviews;
