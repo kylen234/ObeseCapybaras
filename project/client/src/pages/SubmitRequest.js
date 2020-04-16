@@ -4,10 +4,10 @@ import people from '../components/people';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RequestReviews = (props) => (
+const SubmitRequest = (props) => (
     <div>
         <ul>
-            <h1 align={"center"}>View Requests!</h1>
+            <h1 align={"center"}>Submit Requests!</h1>
         </ul>
         <CardStack
             height={500}
@@ -160,4 +160,4 @@ const styles = {
     },
 };
 
-export default RequestReviews;
+export default SubmitRequest;

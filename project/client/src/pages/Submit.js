@@ -27,7 +27,7 @@ const Styles = styled.div`
 }
 `;
 
-class TextEval extends React.Component {
+class Submit extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
@@ -55,7 +55,7 @@ class TextEval extends React.Component {
               <Container>
                 <Breadcrumb>
                   <BreadcrumbItem>
-                    <a href="#">RequestView</a>
+                    <a href="#">RequestReviews</a>
                   </BreadcrumbItem>
                   <BreadcrumbItem active>Submit</BreadcrumbItem>
                 </Breadcrumb>
@@ -75,7 +75,9 @@ class TextEval extends React.Component {
                           Evaluation:
                         </h3>
 
-                        <textarea
+                        <textarea 
+                          rows="10"
+                          placeholder="Your Review..."
                           value={this.state.value}
                           onChange={this.handleChange}
                           align={"center"}
@@ -95,4 +97,4 @@ class TextEval extends React.Component {
     );
   }
 }
-export default TextEval;
+export default Submit;
