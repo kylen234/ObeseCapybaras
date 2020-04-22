@@ -4,7 +4,7 @@ import people from '../components/people';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RequestView = (props) => (
+const RequestReviews = (props) => (
     <div>
         <ul>
             <h1 align={"center"}>View Requests!</h1>
@@ -160,4 +160,4 @@ const styles = {
     },
 };
 
-export default RequestView;
+export default RequestReviews;
