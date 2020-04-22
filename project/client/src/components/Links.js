@@ -36,8 +36,8 @@ class Links extends Component {
                              </Link>   
                         </Item>
                         <Item>
-                            <Link to="/RequestReviews" className="nav-link">
-                                Request Reviews
+                            <Link to="/RequestEvaluations" className="nav-link">
+                                Request Evaluations
                             </Link>
                         </Item>
                         <Item>
@@ -46,8 +46,8 @@ class Links extends Component {
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/OldReviews" className="nav-link">
-                                Old Reviews
+                            <Link to="/OldEvaluations" className="nav-link">
+                                Old Evaluations
                             </Link>
                         </Item>
                     </List>

@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import {Submit, RequestReviews} from './pages';
+import {Submit, RequestEvaluations, OldEvaluations, MyProfile, ViewUnderlings, ReviewRequest} from './pages';
 import { NavBar, SideNav } from './components'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Wrapper = styled.div`
-  margin-left: 12em;
+  margin-left: 200px;
   margin-right: 1em;
 `;
 
@@ -21,18 +21,18 @@ class App extends Component {
                 <SideNav />
                 <Wrapper>
                 <Switch>
-                    <Route exact path='/' component={RequestReviews} />
+                    <Route exact path='/' component={MyProfile} />
                     <Route path='/submit-view' component={Submit} />
-                    { /*
-                    <Route path='/create-book' component={CreateBook} />
-                    <Route path='/edit-book/:id' component={UpdateBookInfo} />
-                    <Route path='/show-book/:id' component={ShowBookDetails} />
-                    */}
+                    <Route path='/OldEvaluations' component={OldEvaluations} />
+                    <Route path='/ViewUnderlings' component={ViewUnderlings} />
+                    <Route path='/RequestEvaluations' component={RequestEvaluations} />
+                    <Route path='/ReviewRequest' component={ReviewRequest} />
                 </Switch>
                 </Wrapper>
             </Router>
         );
     }
 }
+
 
 export default App;
