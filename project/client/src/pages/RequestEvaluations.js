@@ -1,10 +1,9 @@
-import { CardStack, Card } from '../components';
+import { CardStack, Card, people, SearchBar } from '../components';
 import React from 'react';
-import people from '../components/people';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RequestReviews = (props) => (
+const RequestEvaluations = (props) => (
     <div>
         <ul>
             <h1 align={"center"}>View Requests!</h1>
@@ -34,7 +33,7 @@ const RequestReviews = (props) => (
             </Form>
             <div align={"center"}>
                 <Button variant="outline-success" align={"center"}>Submit Request</Button>{' '}
-                <Button variant="outline-danger" align={"center"}>Reject Request</Button>{' '}
+                
             </div>
         </div>
     </div>
@@ -160,4 +159,4 @@ const styles = {
     },
 };
 
-export default RequestReviews;
+export default RequestEvaluations;
