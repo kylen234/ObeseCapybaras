@@ -12,7 +12,6 @@ const employeeSchema = new Schema(
         managerId: {type: Number},
         email: {type: String},
         startDate: {type: String},
-        timestamps: {createdAt: 'createdAt', updatedAt: 'updatedAt'}
     }
 );
 
