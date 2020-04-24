@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import {Submit, RequestEvaluations, OldEvaluations, MyProfile, ViewUnderlings, ReviewRequest} from './pages';
+import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, DirectReports} from './pages';
 import { NavBar, SideNav } from './components'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -23,10 +23,10 @@ class App extends Component {
                 <Switch>
                     <Route exact path='/' component={MyProfile} />
                     <Route path='/submit-view' component={Submit} />
-                    <Route path='/OldEvaluations' component={OldEvaluations} />
-                    <Route path='/ViewUnderlings' component={ViewUnderlings} />
                     <Route path='/RequestEvaluations' component={RequestEvaluations} />
                     <Route path='/ReviewRequest' component={ReviewRequest} />
+                    <Route path='/ViewEvaluations' component={ViewEvaluations} />
+                    <Route path='/DirectReports' component={DirectReports} />
                 </Switch>
                 </Wrapper>
             </Router>
