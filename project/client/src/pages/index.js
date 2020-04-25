@@ -1,8 +1,8 @@
 import RequestEvaluations from './RequestEvaluations'
 import Submit from './Submit'
-import OldEvaluations from './OldEvaluations'
+import ViewEvaluations from './ViewEvaluations'
 import MyProfile from './MyProfile'
-import ViewUnderlings from './ViewUnderlings'
+import DirectReports from './DirectReports'
 import ReviewRequest from './ReviewRequest'
 
-export {Submit, RequestEvaluations, OldEvaluations, MyProfile, ViewUnderlings, ReviewRequest}
+export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, DirectReports, ReviewRequest}
