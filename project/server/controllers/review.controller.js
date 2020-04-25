@@ -2,15 +2,26 @@
 // const Review = require('../models/review_model');
 // const Employee = require('../models/employee_model');
 const db = require('../models');
+
+// Method for trading review id from employee for
+// review body to display to client
+getReviewBody = (req, res) => {
+    // Targets Review with ID equal to req.params.id
+    db.Review.findOne({_id: req.params.id})
+        // If we successfully find a review, send it to the client.
+        .then(review => res.json(review))
+        // Else if and error occurs, send the err to the client
+        .catch(err => res.status(422).json(err));
+},
+
 // Create Review
 createReview = (req, res) => {
-  // Create
-  Review.create(req.body)
+    db.Review.create(req.body)
     .then((newReview) => {
       // Update the Employee's personal reviews with the new review
       return db.Employee.findOneAndUpdate({_id: req.params.id},
-                    { $push: {personalReviews: newReview._id}},
-                    { safe: true, upsert: true, new: true })
+                    {$push: { personalReviews: newReview}},
+                    { new: true })
     })
     // If we were able to successfully update the employee, then send
     // the updated employee information back to the client
@@ -21,7 +32,7 @@ createReview = (req, res) => {
 
 updateReview = (req, res) => {
     // Find specific review with ID equal to req.params.id then update the description with req.body.descriptions
-    Review.findOneAndUpdate({_id: req.params.id},
+    db.Review.findOneAndUpdate({_id: req.params.id},
         { $set: {description: req.body.description}}, {new: true})
         // Then if review was successfully updated, send updated review back to client
         .then(review => res.json(review))
@@ -32,12 +43,12 @@ updateReview = (req, res) => {
 // Delete Review Method
 deleteReview = (req, res) => {
     // Delete review that has ID equal to req.params.id
-    Review.deleteOne({_id: req.params.reviewID})
+    db.Review.deleteOne({_id: req.params.reviewID})
         // If an error occurs, send error back to client
         .catch(err => res.status(422).json(err));
 
     // Delete Employee's association to the review
-    Employee.findOneAndUpdate({_id: req.params.employeeID},
+    db.Employee.findOneAndUpdate({_id: req.params.employeeID},
         {$pull: {personalReviews: req.params.reviewID}},
         {new: true}).then(response => res.json(response));
 };
@@ -46,8 +57,8 @@ deleteReview = (req, res) => {
 assignToReview = (req, res) => {
     // Find Employee who's ID is equal to req.params.employeeID
     // and push req.params.reviewID into 'otherEmployeeReviews' array
-    Employee.findOneAndUpdate({_id: req.params.employeeID},
-        { $addToSet: { otherEmployeeReviews: req.params.reviewID }},
+    db.Employee.findOneAndUpdate({_id: req.params.employeeID},
+        { $addToSet: { outgoingReviews: req.params.reviewID }},
         { safe: true, upsert: true, new: true})
         // If employee was successfully updated with with new review,
         // return updated employee info to client
@@ -59,7 +70,7 @@ assignToReview = (req, res) => {
 // Method for trading review id from employee for review
 // body to display to client
 getReview = (req, res) => {
-  Review.findOne({_id: req.params.id})
+  db.Review.findOne({_id: req.params.id})
       // If we successfully find a review, send it to the client.
       .then(review => res.json(review))
       // Else if and error occurs, send the err to the client
