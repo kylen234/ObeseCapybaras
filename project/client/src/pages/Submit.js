@@ -1,17 +1,16 @@
-import React, { Component, ReactDOM } from "react";
+import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "react-bootstrap";
-//import { Jumbotron } from "../components/Jumbotron";
 import { Jumbotron as Jumbo, Container } from "react-bootstrap";
 import styled from "styled-components";
-import bg from "../assets/bg.jpeg";
-import { CardImgOverlay } from "react-bootstrap/Card";
+import logo from "../assets/logo.png";
 
 const Styles = styled.div`
 .jumbo {
     background-color: #696;
     background-size: cover;
     color: #fff;
-    height 700px;
+    height 1000px;
+    width 1000px;
     postion: relative;
     z-index: -2:
 
@@ -54,9 +53,9 @@ class Submit extends React.Component {
               <div className="overlay"> </div>
               <Container>
                 <Breadcrumb>
-                  <BreadcrumbItem>
-                    <a href="#">RequestReviews</a>
-                  </BreadcrumbItem>
+                  <Breadcrumb.Item href="../RequestEvaluations">
+                    RequestEvaluations
+                  </Breadcrumb.Item>
                   <BreadcrumbItem active>Submit</BreadcrumbItem>
                 </Breadcrumb>
                 <h1 align={"center"}>
@@ -74,8 +73,15 @@ class Submit extends React.Component {
                         >
                           Evaluation:
                         </h3>
-
-                        <textarea 
+                        <div>
+                          Courtesy of{" "}
+                          <img
+                            src={logo}
+                            style={{ height: 60, width: 60 }}
+                            img
+                          />
+                        </div>
+                        <textarea
                           rows="10"
                           placeholder="Your Review..."
                           value={this.state.value}

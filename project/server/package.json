@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "server",
   "version": "1.0.0",
   "description": "Server for 320 project",
   "main": "app.js",

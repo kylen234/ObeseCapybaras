@@ -12,8 +12,16 @@ const employeeSchema = new Schema(
         managerId: {type: Number},
         email: {type: String},
         startDate: {type: String},
+        personalReviews: {
+                type: Schema.Types.ObjectID,
+                ref: "Review"
+        },
+        otherEmployeeReviews: {
+            type: Schema.Types.ObjectID,
+            ref: "Review"
+        }
     }
 );
 
-let Employee = mongoose.model('collection2', employeeSchema);
+const Employee = mongoose.model('collection2', employeeSchema);
 module.exports =  Employee;
