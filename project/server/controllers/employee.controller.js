@@ -8,8 +8,6 @@ createEmployee = (req, res) => {
 };
 
 updateEmployee = (req, res) => {
-    // Find Employee by ID and update name to req.body.name
-    // db.Employee.findOneAndUpdate({_id: req.params.id}, {$set: { name: req.body.name }}, {new: true})
     // Find Employee by ID and update personalReviews to req.body.personalReviews
     db.Employee.findOneAndUpdate({_id: req.params.id}, {$set: { personalReviews: req.body.personalReviews}}, {new: true})
         // Then send Updated Employee back to client
