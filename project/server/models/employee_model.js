@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const reviewSchema = new Schema({
+        author: { type: Number},
+        description: { type: String},
+},
+    {timestamps: true});
 const employeeSchema = new Schema(
     {
         firstName: {type: String},
@@ -13,12 +18,10 @@ const employeeSchema = new Schema(
         email: {type: String},
         startDate: {type: String},
         personalReviews: {
-                type: Schema.Types.ObjectID,
-                ref: "Review"
+            type: [reviewSchema]
         },
-        otherEmployeeReviews: {
-            type: Schema.Types.ObjectID,
-            ref: "Review"
+        outgoingReviews: {
+            type: [reviewSchema]
         }
     }
 );
