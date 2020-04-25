@@ -5,7 +5,7 @@ const db = require('../models');
 // Create Review
 createReview = (req, res) => {
   // Create
-  db.Review.create(req.body)
+  Review.create(req.body)
     .then((newReview) => {
       // Update the Employee's personal reviews with the new review
       return db.Employee.findOneAndUpdate({_id: req.params.id},
@@ -21,7 +21,7 @@ createReview = (req, res) => {
 
 updateReview = (req, res) => {
     // Find specific review with ID equal to req.params.id then update the description with req.body.descriptions
-    db.Review.findOneAndUpdate({_id: req.params.id},
+    Review.findOneAndUpdate({_id: req.params.id},
         { $set: {description: req.body.description}}, {new: true})
         // Then if review was successfully updated, send updated review back to client
         .then(review => res.json(review))
@@ -32,12 +32,12 @@ updateReview = (req, res) => {
 // Delete Review Method
 deleteReview = (req, res) => {
     // Delete review that has ID equal to req.params.id
-    db.Review.deleteOne({_id: req.params.reviewID})
+    Review.deleteOne({_id: req.params.reviewID})
         // If an error occurs, send error back to client
         .catch(err => res.status(422).json(err));
 
     // Delete Employee's association to the review
-    db.Employee.findOneAndUpdate({_id: req.params.employeeID},
+    Employee.findOneAndUpdate({_id: req.params.employeeID},
         {$pull: {personalReviews: req.params.reviewID}},
         {new: true}).then(response => res.json(response));
 };
@@ -46,7 +46,7 @@ deleteReview = (req, res) => {
 assignToReview = (req, res) => {
     // Find Employee who's ID is equal to req.params.employeeID
     // and push req.params.reviewID into 'otherEmployeeReviews' array
-    db.Employee.findOneAndUpdate({_id: req.params.employeeID},
+    Employee.findOneAndUpdate({_id: req.params.employeeID},
         { $addToSet: { otherEmployeeReviews: req.params.reviewID }},
         { safe: true, upsert: true, new: true})
         // If employee was successfully updated with with new review,
@@ -59,7 +59,7 @@ assignToReview = (req, res) => {
 // Method for trading review id from employee for review
 // body to display to client
 getReview = (req, res) => {
-  db.Review.findOne({_id: req.params.id})
+  Review.findOne({_id: req.params.id})
       // If we successfully find a review, send it to the client.
       .then(review => res.json(review))
       // Else if and error occurs, send the err to the client
