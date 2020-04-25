@@ -1,9 +1,9 @@
 // Requiring DB
-const db = require('../models/review_model');
-
+// const Review = require('../models/review_model');
+// const Employee = require('../models/employee_model');
+const db = require('../models');
 // Create Review
 createReview = (req, res) => {
-
   // Create
   db.Review.create(req.body)
     .then((newReview) => {

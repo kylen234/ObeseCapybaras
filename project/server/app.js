@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
 
 const db = require('./db');
-const employeeRouter = require('./routes');
+const router = require('./routes');
 
 const app = express();
 const apiPort = 3000;
@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
-app.use('/collection2', employeeRouter);
+app.use('/', router);
+// app.use()
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
