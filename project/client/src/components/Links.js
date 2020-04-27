@@ -31,8 +31,8 @@ class Links extends Component {
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/ViewUnderlings" className="nav-link">
-                                View Underlings
+                            <Link to="/DirectReports" className="nav-link">
+                                View Direct Reports
                              </Link>   
                         </Item>
                         <Item>
@@ -46,8 +46,8 @@ class Links extends Component {
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/OldEvaluations" className="nav-link">
-                                Old Evaluations
+                            <Link to="/ViewEvaluations" className="nav-link">
+                                View Evaluations
                             </Link>
                         </Item>
                     </List>
