@@ -4,7 +4,10 @@ import {SearchBar} from '../components';
 class OldEvaluations extends Component{
     render(){
         return(
-            <SearchBar />
+            <div>
+                <h1 align = {"center"}>Old Evaluations</h1>
+                <SearchBar />
+            </div>
         )
     }
 }
