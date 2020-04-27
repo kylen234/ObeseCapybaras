@@ -25,6 +25,7 @@ deleteEmployee = (req, res) => {
         .catch(err => res.status(422).json(err));
 };
 
+// Probably not gonna be used since it's so fucking long
 getEmployee = (req, res) => {
     // Target Employee who's ID is equal to req.params.id
     db.Employee.findOne({_id: req.params.id})
@@ -33,6 +34,32 @@ getEmployee = (req, res) => {
         // If an error occurs, send the error to the client instead
         .catch(err => res.status(400).json(err));
 };
+
+
+getEmployeeID = (req, res) => {
+    db.Employee.findOne({employeeId: req.params.employeeId})
+        // Then send Employee's info back to client
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the error to the client instead
+        .catch(err => res.status(400).json(err));
+};
+
+getEmail = (req, res) => {
+    db.Employee.findOne({email: req.params.email})
+        // Then send Employee's info back to client
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the error to the client instead
+        .catch(err => res.status(400).json(err));
+};
+
+getPassword = (req, res) => {
+    db.Employee.findOne({password: req.params.password})
+        // Then send Employee's info back to client
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the error to the client instead
+        .catch(err => res.status(400).json(err));
+};
+
 
 // Get All Employees Method
 getAllEmployees = async(req, res) => {
@@ -44,10 +71,14 @@ getAllEmployees = async(req, res) => {
         .catch(err => res.status(400).json(err));
 };
 
+
 module.exports = {
   createEmployee,
   updateEmployee,
   deleteEmployee,
   getEmployee,
-  getAllEmployees
+  getAllEmployees,
+    getEmployeeID,
+    getEmail,
+    getPassword
 };
