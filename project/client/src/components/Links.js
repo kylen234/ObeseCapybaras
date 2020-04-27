@@ -47,7 +47,7 @@ class Links extends Component {
                         </Item>
                         <Item>
                             <Link to="/ViewEvaluations" className="nav-link">
-                                View Evaluations
+                                View Your Evaluations
                             </Link>
                         </Item>
                     </List>

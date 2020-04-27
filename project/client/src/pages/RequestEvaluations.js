@@ -1,12 +1,100 @@
 import { CardStack, Card, people, SearchBar } from '../components';
-import React from 'react';
+import React, {Component} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import Checkbox from '../components/Checkbox';
 
+class RequestEvaluations extends Component {
+    constructor(props) {
+        super(props);  //since we are extending class Table so we have to use super in order to override Component class constructor
+        this.state = { people };
+    };
+
+    componentWillMount = () => {
+        this.selectedCheckboxes = new Set();
+    };
+
+    toggleCheckbox = label => {
+        if (this.selectedCheckboxes.has(label)) {
+            this.selectedCheckboxes.delete(label);
+        } else {
+            this.selectedCheckboxes.add(label);
+        }
+    };
+
+    handleFormSubmit = formSubmitEvent => {
+        formSubmitEvent.preventDefault();
+
+        for (const checkbox of this.selectedCheckboxes) {
+            console.log(checkbox, 'is selected.');
+        }
+    };
+
+    createCheckbox = label => (
+        <Checkbox
+            label={label}
+            handleCheckboxChange={this.toggleCheckbox}
+            key={label}
+        />
+    );
+
+    renderTableData() {
+        return this.state.people.map((people) => {
+            const { background, imgSrc, imgBorderColor, name, title, mobileNo, location, role } = people; //destructuring
+            return (
+                <tr key={name}>
+                    <td>
+                        <ProfilePicture imgSrc={imgSrc}/> {name}, {title}
+                    </td>
+                    <td>
+                        <form onSubmit={this.handleFormSubmit}>
+                            {this.createCheckbox()}
+                        </form>
+                    </td>
+                </tr>
+            )
+        })
+    }
+
+    renderTableHeader() {
+        let header = [ 'EMPLOYEES', 'REQUEST EVALUATION' ]
+        return header.map((key, index) => {
+            return <th key={index}>{key.toUpperCase()}</th>
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <h1 id='title'>REQUEST EVALUATION</h1>
+                <table id='evaluations'>
+                    <tbody>
+                    <tr>{this.renderTableHeader()}</tr>
+                    {this.renderTableData()}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
+
+
+const ProfilePicture = ({ imgSrc, borderColor }) => (
+    <img
+        style={{
+            width: '60px',
+            height: '60px',
+        }}
+        src={imgSrc}
+    />
+);
+/*
 const RequestEvaluations = (props) => (
     <div>
         <ul>
-            <h1 align={"center"}>View Requests!</h1>
+            <h1 align={"center"}>Request Evaluations!</h1>
         </ul>
         <CardStack
             height={500}
@@ -22,6 +110,7 @@ const RequestEvaluations = (props) => (
                 </Card>
             )}
         </CardStack>
+
         <div>
             <h2 align={"center"} style={styles.messages}>
                 Messages
@@ -33,9 +122,10 @@ const RequestEvaluations = (props) => (
             </Form>
             <div align={"center"}>
                 <Button variant="outline-success" align={"center"}>Submit Request</Button>{' '}
-                
+
             </div>
         </div>
+
     </div>
 );
 
@@ -103,6 +193,12 @@ const TeamMemberCard = (props) => (
                 title='Main Role'
                 summary={props.role}
             />
+            <Form>
+                <Button variant="outline-success" align={"center"}>Submit Request</Button>{' '}
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Control as="textarea" rows="3" />
+                </Form.Group>
+            </Form>
         </div>
     </div>
 );
@@ -158,5 +254,7 @@ const styles = {
         paddingTop: '50px',
     },
 };
+ */
+
 
 export default RequestEvaluations;
