@@ -4,5 +4,10 @@ import ViewEvaluations from './ViewEvaluations'
 import MyProfile from './MyProfile'
 import ManagerView from './ManagerView'
 import ReviewRequest from './ReviewRequest'
+import Login from './Login';
 
-export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, ManagerView, ReviewRequest}
+//<<<<<<< timothy
+// export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, DirectReports, ReviewRequest, Login};
+// =======
+export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, ManagerView, ReviewRequest, ReviewRequest, Login}
+// >>>>>>> master
