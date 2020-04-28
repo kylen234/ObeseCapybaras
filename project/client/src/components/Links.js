@@ -31,7 +31,7 @@ class Links extends Component {
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/DirectReports" style={{color: '#FFF'}} className="nav-link">
+                            <Link to="/ManagerView" style={{color: '#FFF'}} className="nav-link">
                                 View Direct Reports
                              </Link>   
                         </Item>
