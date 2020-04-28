@@ -45,12 +45,16 @@ const Main = withRouter(({ location }) => {
             location.pathname !== '/' && <SideNav/>
             }
         <Route exact path="/" component={Login} />
+            <Wrapper>
+                <Switch>
         <Route path='/MyProfile' component={MyProfile} />
         <Route path='/submit-view' component={Submit} />
         <Route path='/RequestEvaluations' component={RequestEvaluations} />
         <Route path='/ReviewRequest' component={ReviewRequest} />
         <Route path='/ViewEvaluations' component={ViewEvaluations} />
         <Route path='/DirectReports' component={DirectReports} />
+                </Switch>
+            </Wrapper>
         </div>
     )
 });
