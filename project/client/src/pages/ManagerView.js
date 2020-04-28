@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import '../components/style.css';
 import Button from 'react-bootstrap/button'
 
-class DirectReports extends Component {
+class ManagerView extends Component {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = { people };
@@ -58,4 +58,4 @@ const ProfilePicture = ({ imgSrc, borderColor }) => (
     />
 );
 
-export default DirectReports; //exporting a component make it reusable and this is the beauty of react
+export default ManagerView; //exporting a component make it reusable and this is the beauty of react

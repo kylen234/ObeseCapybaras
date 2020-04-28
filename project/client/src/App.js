@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, DirectReports, Login} from './pages';
+// import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, DirectReports, Login} from './pages';
+
+import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, ManagerView, , Login} from './pages';
+
 import { NavBar, SideNav } from './components'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -28,7 +31,7 @@ class App extends Component {
                     <Route path='/RequestEvaluations' component={RequestEvaluations} />
                     <Route path='/ReviewRequest' component={ReviewRequest} />
                     <Route path='/ViewEvaluations' component={ViewEvaluations} />
-                    <Route path='/DirectReports' component={DirectReports} />
+                    <Route path='/ManagerView' component={ManagerView} />
                 </Switch>
                 </Wrapper>
             </Router>
@@ -52,7 +55,7 @@ const Main = withRouter(({ location }) => {
         <Route path='/RequestEvaluations' component={RequestEvaluations} />
         <Route path='/ReviewRequest' component={ReviewRequest} />
         <Route path='/ViewEvaluations' component={ViewEvaluations} />
-        <Route path='/DirectReports' component={DirectReports} />
+        <Route path='/ManagerView' component={ManagerView} />
                 </Switch>
             </Wrapper>
         </div>
