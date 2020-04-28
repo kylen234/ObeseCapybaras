@@ -4,5 +4,6 @@ import ViewEvaluations from './ViewEvaluations'
 import MyProfile from './MyProfile'
 import DirectReports from './DirectReports'
 import ReviewRequest from './ReviewRequest'
+import Login from './Login';
 
-export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, DirectReports, ReviewRequest}
+export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, DirectReports, ReviewRequest, Login};
