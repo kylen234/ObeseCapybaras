@@ -9,5 +9,5 @@ import Login from './Login';
 //<<<<<<< timothy
 // export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, DirectReports, ReviewRequest, Login};
 // =======
-export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, ManagerView, ReviewRequest, ReviewRequest, Login}
+export {Submit, RequestEvaluations, ViewEvaluations, MyProfile, ManagerView, ReviewRequest, Login}
 // >>>>>>> master

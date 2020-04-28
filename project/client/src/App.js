@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 // import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, DirectReports, Login} from './pages';
 
-import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, ManagerView, , Login} from './pages';
+import {Submit, RequestEvaluations, MyProfile, ReviewRequest, ViewEvaluations, ManagerView, Login} from './pages';
 
 import { NavBar, SideNav } from './components'
 
