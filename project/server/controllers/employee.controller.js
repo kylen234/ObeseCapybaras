@@ -1,6 +1,49 @@
 // Requiring DB
-// const Employee = require('../models/employee_model');
+
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
 const db = require('../models');
+
+const httpResponse = {
+    onUserNotFound: {
+        success: false,
+        message: 'User not found.'
+    },
+    onAuthenticationFail: {
+        success: false,
+        message: 'Passwords did not match.'
+    }
+};
+
+
+loginUser = (req, res) => {
+    let { email, password } = req.body;
+
+    // console.log(email);
+    // console.log(password);
+
+    db.Employee.findOne({
+        email: email
+    }, function(error, user) {
+        if(error) throw error;
+        if(!user) res.send(httpResponse.onUserNotFound);
+
+        // Check if password matches
+        user.comparePassword(password, function(error, isMatch) {
+            console.log(isMatch);
+            if (isMatch && !error) {
+                let token = jwt.sign(user.toJSON(), "mongodb+srv://timothynguye:MisterMonkey80@obesecapy-d0xxf.mongodb.net/test?retryWrites=true&w=majority\"", {
+                    expiresIn: 10080
+                });
+                return res.json({ success: true, token: 'JWT ' + token });
+            }
+
+            res.send(httpResponse.onAuthenticationFail);
+        });
+    });
+};
+
 createEmployee = (req, res) => {
     db.Employee.create(req.body)
         .then(Employee => res.json(Employee))
@@ -52,15 +95,6 @@ getEmail = (req, res) => {
         .catch(err => res.status(400).json(err));
 };
 
-getPassword = (req, res) => {
-    db.Employee.findOne({password: req.params.password})
-        // Then send Employee's info back to client
-        .then(Employee => res.json(Employee))
-        // If an error occurs, send the error to the client instead
-        .catch(err => res.status(400).json(err));
-};
-
-
 // Get All Employees Method
 getAllEmployees = async(req, res) => {
     // Gather all Employees in DB
@@ -73,12 +107,12 @@ getAllEmployees = async(req, res) => {
 
 
 module.exports = {
-  createEmployee,
-  updateEmployee,
-  deleteEmployee,
-  getEmployee,
-  getAllEmployees,
+    createEmployee,
+    updateEmployee,
+    deleteEmployee,
+    getEmployee,
+    getAllEmployees,
     getEmployeeID,
     getEmail,
-    getPassword
+    loginUser,
 };

@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-/*
+const bcrypt = require('bcrypt');
 
-const reviewSchema = new Schema({
-        author: { type: Number},
-        description: { type: String},
-},
-    {timestamps: true});
-*/
 const reviewSchema = new Schema({
         author: { type: Schema.Types.ObjectID, ref: "Employee"},
         target: { type: Schema.Types.ObjectID, ref: "Employee"},
@@ -39,6 +33,50 @@ const employeeSchema = new Schema(
         }
     }
 );
+
+employeeSchema.pre('save', function(next) {
+        let user = this;
+        if (this.isModified('password') || this.isNew) {
+                bcrypt.genSalt(10, (err, salt) => {
+                        if (err) {
+                                console.log(err);
+                                return next(err);
+                        }
+
+                        bcrypt.hash(user.password, salt, (err, hash) => {
+                                if (err) {
+                                        console.log(err);
+                                        return next(err);
+                                }
+
+                                user.password = hash;
+                                next();
+                        });
+                });
+        } else {
+                return next();
+        }
+});
+
+// Create method to compare password input to password saved in database
+employeeSchema.methods.comparePassword = function(pw, cb) {
+        // console.log(pw);
+        //cb(null, true);
+
+        if(pw == this.password) {
+              cb(null, true);
+        }
+
+
+        /*
+        bcrypt.compare(pw, this.password, function(err, isMatch) {
+                if (err) {
+                        return cb(err);
+                }
+                cb(null, isMatch);
+        });
+        */
+};
 
 const Employee = mongoose.model('collection2', employeeSchema);
 module.exports =  Employee;
