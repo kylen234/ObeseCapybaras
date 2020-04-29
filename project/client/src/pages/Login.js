@@ -4,7 +4,7 @@ import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { loginUserAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { connect } from 'react-redux';
-import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -15,7 +15,7 @@ class Login extends Component {
             password: "",
             employee: {},
             errors: {},
-            success: false
+            isSuccess: false
         };
     }
 
@@ -30,7 +30,7 @@ class Login extends Component {
         };
 
         this.props.dispatch(loginUserAction(data));
-
+        /*
         axios
             .post(`http://localhost:3000/collection2/login`, data)
             .then(response => {
@@ -42,6 +42,7 @@ class Login extends Component {
             }).then(json => {
             return json;
         });
+         */
     };
 
     componentDidMount() {
@@ -57,46 +58,23 @@ class Login extends Component {
         return true;
     };
 
-    /*
-    // Don't use this lol
-    findEmployee = (event) => {
-        // Prevent submit's default action of page load
-        event.preventDefault();
-
-        // Target Input value
-        const email = document.getElementById('employeeEmail').value;
-        const password = document.getElementById('employeePassword').value;
-        // Fetch request for employee information
-        axios
-            .get(`http://localhost:3000/collection2/getEmail/`+email)
-            .then(employeeData => {
-                // If data comes back with a CastError, send error message to client
-                if (employeeData.data.password !== password) {
-                    this.setState({errorMessage: 'Incorrect Password' + employeeData.data.password});
-                } else {
-                    // Else set state 'employee' to employeeData
-                    this.setState({employee: employeeData});
-                    this.props.history.push("MyProfile");
-                    MyProfile.getProfile(employeeData);
-                    // LOGIN_USER = {empl//oyee: employeeData};
-                    // this.props.dispatch(loginUserAction({employeeData}));
-                }
-            });
-    }
-     */
-
     render() {
-        let isSuccess, message;
+        let message;
 
         if (this.props.response.login.hasOwnProperty('response')) {
-            isSuccess = this.props.response.login.response.success;
+            this.state.isSuccess = this.props.response.login.response.data.success;
             message = this.props.response.login.response.message;
 
-            if (isSuccess) {
+            if (this.state.isSuccess) {
                 setCookie('token', this.props.response.login.response.token, 1);
             }
         }
+
+        if(this.state.isSuccess) {
+            return <Redirect to='./MyProfile'/>;
+        }
         return (
+
             <div className="container">
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col s8 offset-s2">

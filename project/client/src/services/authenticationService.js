@@ -1,5 +1,4 @@
 import axios from "axios";
-import MyProfile from "../pages/MyProfile";
 
 export const loginUserService = (request) => {
 
@@ -7,7 +6,7 @@ export const loginUserService = (request) => {
         .post(`http://localhost:3000/collection2/login`, request.user)
         .then(response => {
             // If data comes back with a CastError, send error message to client
-            console.log(response.data.success);
+            return response;
         }).then(json => {
             return json;
         });
