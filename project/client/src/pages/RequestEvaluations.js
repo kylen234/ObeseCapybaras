@@ -74,6 +74,7 @@ class RequestEvaluations extends Component {
                     {this.renderTableData()}
                     </tbody>
                 </table>
+                <SearchBar />
             </div>
         )
     }

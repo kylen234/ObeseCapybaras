@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
 import MyProfile from "./MyProfile";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { loginUserAction } from '../actions/authenticationActions';
+import { setCookie } from '../utils/cookies';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+
 class Login extends Component {
     constructor() {
         super();
@@ -9,22 +14,28 @@ class Login extends Component {
             email: "",
             password: "",
             employee: {},
-            errors: {}
+            errors: {},
+            isSuccess: false
         };
     }
 
+    onHandleLogin = (event) => {
+        event.preventDefault();
+
+        let email = event.target.email.value;
+        let password = event.target.password.value;
+
+        const data = {
+            email, password
+        };
+
+        this.props.dispatch(loginUserAction(data));
+    };
+
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
-        if (!this.isEmpty(this.state.employee)) {
-            this.props.history.push("MyProfile");
-        }
+        document.title = 'React Login';
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!this.isEmpty(this.state.employee)) {
-            this.props.history.push("MyProfile");
-        }
-    }
 
     // If object is empty
     isEmpty = (obj) => {
@@ -34,53 +45,46 @@ class Login extends Component {
         return true;
     };
 
-    findEmployee = (event) => {
-        // Prevent submit's default action of page load
-        event.preventDefault();
-
-        // Target Input value
-        const email = document.getElementById('employeeEmail').value;
-        const password = document.getElementById('employeePassword').value;
-        // Fetch request for employee information
-        axios
-            .get(`http://localhost:3000/collection2/getEmail/`+email)
-            .then(employeeData => {
-                // If data comes back with a CastError, send error message to client
-                if (employeeData.data.password !== password) {
-                    this.setState({errorMessage: 'Incorrect Password' + employeeData.data.password});
-                } else {
-                    // Else set state 'employee' to employeeData
-                    this.setState({employee: employeeData});
-                    this.props.history.push("MyProfile");
-                }
-            });
-    }
-
     render() {
-            return (
-                <div className="container">
-                    <div style={{marginTop: "4rem"}} className="row">
-                        <div className="col s8 offset-s2">
-                            <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                                <h4>
-                                    <b>Login</b> below
-                                </h4>
-                            </div>
-                            <form noValidate onSubmit={this.findEmployee}>
-                                <FormGroup controlId="Username" bsSize="large">
-                                    <input id="employeeEmail" className="col-10" placeholder="Email" style={styles.inputBar}/>
-                                </FormGroup>
-                                <FormGroup controlId="password" bsSize="large">
-                                    <input id="employeePassword" className="col-10" placeholder="Password" style={styles.inputBar}/>
-                                </FormGroup>
-                                <Button type="submit">
-                                    Login
-                                </Button>
-                            </form>
+        let message;
+
+        if (this.props.response.login.hasOwnProperty('response')) {
+            this.state.isSuccess = this.props.response.login.response.data.success;
+            message = this.props.response.login.response.message;
+
+            if (this.state.isSuccess) {
+                setCookie('token', this.props.response.login.response.token, 1);
+            }
+        }
+
+        if(this.state.isSuccess) {
+            return <Redirect to='./MyProfile'/>;
+        }
+        return (
+
+            <div className="container">
+                <div style={{marginTop: "4rem"}} className="row">
+                    <div className="col s8 offset-s2">
+                        <div className="col s12" style={{paddingLeft: "11.250px"}}>
+                            <h4>
+                                <b>Login</b> below
+                            </h4>
                         </div>
+                        <form noValidate onSubmit={this.onHandleLogin}>
+                            <FormGroup controlId="Username" bsSize="large">
+                                <input type="email" name="email" id="email" className="col-10" placeholder="Email" style={styles.inputBar}/>
+                            </FormGroup>
+                            <FormGroup controlId="password" bsSize="large">
+                                <input type="password" name="password" id="password" className="col-10" placeholder="Password" style={styles.inputBar}/>
+                            </FormGroup>
+                            <Button type="submit">
+                                Login
+                            </Button>
+                        </form>
                     </div>
                 </div>
-            );
+            </div>
+        );
     }
 }
 const styles = {
@@ -103,5 +107,5 @@ const styles = {
     }
 };
 
-
-export default Login;
+const mapStateToProps = (response) => ({response});
+export default connect(mapStateToProps)(Login);
