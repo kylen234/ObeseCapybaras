@@ -30,19 +30,6 @@ class Login extends Component {
         };
 
         this.props.dispatch(loginUserAction(data));
-        /*
-        axios
-            .post(`http://localhost:3000/collection2/login`, data)
-            .then(response => {
-                // If data comes back with a CastError, send error message to client
-                // console.log(response.data.success);
-                if(response.data.success) {
-                    this.props.history.push('MyProfile');
-                }
-            }).then(json => {
-            return json;
-        });
-         */
     };
 
     componentDidMount() {
@@ -122,4 +109,3 @@ const styles = {
 
 const mapStateToProps = (response) => ({response});
 export default connect(mapStateToProps)(Login);
-// export default Login;

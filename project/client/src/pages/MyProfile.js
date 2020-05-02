@@ -2,15 +2,10 @@ import React, { Component } from "react";
 import { loginUserAction } from '../actions/authenticationActions';
 class MyProfile extends Component {
     render() {
-        // console.log(loginUserA);
         return (
             <h1>My Profile</h1>
 
         );
-    }
-
-    getProfile(data) {
-        console.log(data);
     }
 }
 const styles = {
