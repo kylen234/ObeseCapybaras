@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ObeseCapybaras/precache-manifest.560cd2912c0acc64cd99bdcfa360520d.js"
+  "/ObeseCapybaras/precache-manifest.13fec62d2ed4f802a2d15aef7f911fdd.js"
 );
 
 self.addEventListener('message', (event) => {
