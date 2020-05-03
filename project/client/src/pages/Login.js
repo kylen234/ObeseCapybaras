@@ -2,20 +2,19 @@ import React, { Component } from "react";
 import MyProfile from "./MyProfile";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { loginUserAction } from '../actions/authenticationActions';
-import { setCookie } from '../utils/cookies';
+import {checkCookie, setCookie} from '../utils/cookies';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
-            email: "",
-            password: "",
             employee: {},
             errors: {},
-            isSuccess: false
+            isSuccess: false,
+            message: ''
         };
     }
 
@@ -36,33 +35,40 @@ class Login extends Component {
         document.title = 'React Login';
     }
 
-
-    // If object is empty
-    isEmpty = (obj) => {
-        for(let key in obj) {
-            if(obj.hasOwnProperty(key)) return false;
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.response.login.hasOwnProperty('response')) {
+            if (nextProps.response.login.response.data.success !== prevState.isSuccess) {
+                setCookie('token', nextProps.response.login.response.data.token, 1);
+                setCookie('id', nextProps.response.login.response.data._id, 1);
+                setCookie('companyId', nextProps.response.login.response.data.companyId, 100);
+                return {
+                    isSuccess: nextProps.response.login.response.data.success,
+                    message: "SUCCESS"
+                };
+            } else {
+                return {
+                    isSuccess: false,
+                    message: "FAILURE"
+                };
+            }
+        } else {
+            return null;
         }
-        return true;
-    };
+    }
 
     render() {
-        let message;
+        console.log(this.state.isSuccess);
 
-        if (this.props.response.login.hasOwnProperty('response')) {
-            this.state.isSuccess = this.props.response.login.response.data.success;
-            message = this.props.response.login.response.message;
-
-            if (this.state.isSuccess) {
-                setCookie('token', this.props.response.login.response.token, 1);
-            }
-        }
 
         if(this.state.isSuccess) {
             return <Redirect to='./MyProfile'/>;
         }
-        return (
 
+        return (
             <div className="container">
+                <Link to='/'/>
+                {(checkCookie() !== null) ? <Redirect to='/MyProfile' /> : <Redirect to='/'/>}
+                {(!this.props.isSuccess) ? <div className='error'>{this.props.messages}</div> : null}
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col s8 offset-s2">
                         <div className="col s12" style={{paddingLeft: "11.250px"}}>

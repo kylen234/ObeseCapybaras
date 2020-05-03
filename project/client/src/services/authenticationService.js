@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const loginUserService = (request) => {
-
     axios
         .post(`http://localhost:3000/collection2/login`, request.user)
         .then(response => {

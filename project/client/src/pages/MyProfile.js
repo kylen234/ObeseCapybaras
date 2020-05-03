@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import { loginUserAction } from '../actions/authenticationActions';
-class MyProfile extends Component {
-    render() {
-        return (
-            <h1>My Profile</h1>
+import {Redirect} from "react-router-dom";
+import {getCookie, checkCookie} from "../utils/cookies";
 
+class MyProfile extends Component {
+
+    render() {
+        //console.log(getCookie('token'));
+        //console.log(getCookie('id'));
+        //console.log(getCookie('companyID'))
+        return (
+            <div>
+                <h1>My Profile</h1>
+            </div>
         );
     }
 }

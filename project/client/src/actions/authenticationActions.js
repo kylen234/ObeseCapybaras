@@ -6,3 +6,10 @@ export const loginUserAction = (user) => {
         user
     }
 };
+
+export const logoutAction = (user) => {
+    return {
+        type: types.LOGOUT_USER,
+        user
+    }
+};

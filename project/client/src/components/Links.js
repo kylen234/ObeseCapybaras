@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import {Login} from "../pages";
 
 const Collapse = styled.div.attrs({
     className: 'collpase navbar-collapse',
@@ -42,7 +43,7 @@ class Links extends Component {
                         </Item>
                         <Item>
                             <Link to="/ReviewRequest" style={{color: '#FFF'}} className="nav-link">
-                                Review Request
+                                Review Evaluations
                             </Link>
                         </Item>
                         <Item>
@@ -51,7 +52,7 @@ class Links extends Component {
                             </Link>
                         </Item>
                         <Item>
-                            <Link to="/" style={{color: '#FFF'}} className="Logout">
+                            <Link to='/logout' style={{color: '#FFF'}} className="Logout">
                                 Logout
                             </Link>
                         </Item>

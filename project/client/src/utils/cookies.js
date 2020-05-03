@@ -1,8 +1,8 @@
-export function setCookie(cname, cvalue, hours) {
+export function setCookie(cname, value, hours) {
     let d = new Date();
     d.setTime(d.getTime() + (hours * 60 * 60 * 1000)); // (exdays * 24 * 60 * 60 * 1000));
     let expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+    document.cookie = cname + '=' + value + ';' + expires + ';path=/';
 }
 
 export function getCookie(cname) {
