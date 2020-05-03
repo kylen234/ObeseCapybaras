@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/ObeseCapybaras/static/css/main.299ac0d8.chunk.css",
+    "main.js": "/ObeseCapybaras/static/js/main.736bf375.chunk.js",
+    "main.js.map": "/ObeseCapybaras/static/js/main.736bf375.chunk.js.map",
+    "runtime-main.js": "/ObeseCapybaras/static/js/runtime-main.0079f483.js",
+    "runtime-main.js.map": "/ObeseCapybaras/static/js/runtime-main.0079f483.js.map",
+    "static/css/2.de424728.chunk.css": "/ObeseCapybaras/static/css/2.de424728.chunk.css",
+    "static/js/2.7b2a1f27.chunk.js": "/ObeseCapybaras/static/js/2.7b2a1f27.chunk.js",
+    "static/js/2.7b2a1f27.chunk.js.map": "/ObeseCapybaras/static/js/2.7b2a1f27.chunk.js.map",
+    "index.html": "/ObeseCapybaras/index.html",
+    "precache-manifest.560cd2912c0acc64cd99bdcfa360520d.js": "/ObeseCapybaras/precache-manifest.560cd2912c0acc64cd99bdcfa360520d.js",
+    "service-worker.js": "/ObeseCapybaras/service-worker.js",
+    "static/css/2.de424728.chunk.css.map": "/ObeseCapybaras/static/css/2.de424728.chunk.css.map",
+    "static/css/main.299ac0d8.chunk.css.map": "/ObeseCapybaras/static/css/main.299ac0d8.chunk.css.map",
+    "static/js/2.7b2a1f27.chunk.js.LICENSE.txt": "/ObeseCapybaras/static/js/2.7b2a1f27.chunk.js.LICENSE.txt",
+    "static/media/logo.png": "/ObeseCapybaras/static/media/logo.8135297a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0079f483.js",
+    "static/css/2.de424728.chunk.css",
+    "static/js/2.7b2a1f27.chunk.js",
+    "static/css/main.299ac0d8.chunk.css",
+    "static/js/main.736bf375.chunk.js"
+  ]
+}
