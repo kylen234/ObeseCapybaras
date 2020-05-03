@@ -4,11 +4,32 @@ import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Checkbox from '../components/Checkbox';
+import {getCookie} from "../utils/cookies";
 
 class RequestEvaluations extends Component {
     constructor(props) {
         super(props);  //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = { people };
+        this.state = {
+            people,
+            id: getCookie('id'),
+            companyId: getCookie('companyId'),
+            employees: {arr: []}
+        };
+
+        axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
+            params: {
+                id: getCookie('id'),
+                companyId: getCookie('companyId'),
+            }
+        })
+        .then(response => {
+            // If data comes back with a CastError, send error message to client
+            this.state.employees.arr = response.data;
+            return response;
+        })
+        .catch(response => {
+            console.log(response);
+        });
     };
 
     componentWillMount = () => {
@@ -40,12 +61,15 @@ class RequestEvaluations extends Component {
     );
 
     renderTableData() {
-        return this.state.people.map((people) => {
-            const { background, imgSrc, imgBorderColor, name, title, mobileNo, location, role } = people; //destructuring
+        console.log(this.state.employees.arr[0]);
+        return this.state.employees.arr.map((employee) => {
+            console.log(employee);
+            const { firstName, lastName, positionTitle } = employee; //destructuring
+            let name = firstName + " " + lastName;
             return (
                 <tr key={name}>
                     <td>
-                        <ProfilePicture imgSrc={imgSrc}/> {name}, {title}
+                        {name}, {positionTitle}
                     </td>
                     <td>
                         <form onSubmit={this.handleFormSubmit}>
@@ -54,7 +78,8 @@ class RequestEvaluations extends Component {
                     </td>
                 </tr>
             )
-        })
+        });
+
     }
 
     renderTableHeader() {
@@ -63,6 +88,7 @@ class RequestEvaluations extends Component {
             return <th key={index}>{key.toUpperCase()}</th>
         })
     }
+
 
     render() {
         return (

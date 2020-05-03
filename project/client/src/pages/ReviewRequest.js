@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ReviewRequest = (props) => (
     <div>
         <ul>
-            <h1 align={"center"}>Requests for Evaluations!</h1>
+            <h1 align={"center"}>Review Evaluations!</h1>
         </ul>
         <CardStack
             height={500}

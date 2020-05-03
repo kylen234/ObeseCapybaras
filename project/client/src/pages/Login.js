@@ -57,18 +57,6 @@ class Login extends Component {
     }
 
     render() {
-        /*
-        if (this.props.response.login.hasOwnProperty('response')) {
-            console.log(this.props.response.login.response);
-            this.state.isSuccess = this.props.response.login.response.data.success;
-            if (this.state.isSuccess) {
-                setCookie('token', this.props.response.login.response.data.token, 100);
-                setCookie('id', this.props.response.login.response.data._id, 100);
-                setCookie('companyID', this.props.response.login.response.data._id, 100);
-            }
-        }
-
-         */
         console.log(this.state.isSuccess);
 
 

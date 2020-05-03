@@ -100,8 +100,8 @@ getEmployeeID = (req, res) => {
 };
 
 getAllEmployeesByCompany = (req, res) => {
-    console.log(req.params);
-    db.Employee.find({companyId: req.body.companyId})
+    console.log(req.query);
+    db.Employee.find({companyId: req.query.companyId})
         .then(Employee => res.json(Employee))
         // If an error occurs, send the error to the client instead
         .catch(err => res.status(400).json(err));
