@@ -6,5 +6,6 @@ import NavBar from './NavBar'
 import Links from './Links'
 import SearchBar from './SearchBar'
 import people from './people'
+import LogoutComponent from "./LogoutComponent";
 
-export { Card, CardStack, Logo, NavBar, Links, SideNav, SearchBar, people };
+export { Card, CardStack, Logo, NavBar, Links, SideNav, SearchBar, people, LogoutComponent};

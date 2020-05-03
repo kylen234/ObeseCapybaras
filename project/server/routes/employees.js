@@ -8,6 +8,8 @@ router.get('/getEmployee/:id', EmployeeCtrl.getEmployee);
 router.get('/getAllEmployees', EmployeeCtrl.getAllEmployees);
 router.get('/getEmail/:email', EmployeeCtrl.getEmail);
 router.post('/login', EmployeeCtrl.loginUser);
+router.post('/logout', EmployeeCtrl.logoutUser);
+router.get('/getEmployeeByCompany', EmployeeCtrl.getAllEmployeesByCompany);
 
 
 module.exports = router;

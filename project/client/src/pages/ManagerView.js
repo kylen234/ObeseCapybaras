@@ -4,13 +4,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import '../components/style.css';
 import Button from 'react-bootstrap/button'
+import {getCookie} from "../utils/cookies";
+import axios from 'axios';
 
 class ManagerView extends Component {
     constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = { people };
+        super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+        this.state = {
+            people,
+            // id: getCookie('id'),
+            // companyId: getCookie('companyId'),
+        }
     }
     renderTableData() {
+        let data = {
+            id: Number(getCookie('id')),
+            companyId: getCookie('companyId')
+        };
+        // TODO: Fix this stupid request to get data
+        const response  = axios
+            .get(`http://localhost:3000/collection2/getEmployeeByCompany`, data)
+            .then(response => {
+                // If data comes back with a CastError, send error message to client
+                console.log(response);
+                return response;
+            }).then(json => {
+            return json;
+        });
         return this.state.people.map((people) => {
             const { background, imgSrc, imgBorderColor, name, title, mobileNo, location, role } = people //destructuring
             return (
@@ -27,7 +47,7 @@ class ManagerView extends Component {
     }
 
     renderTableHeader() {
-        let header = [ 'EMPLOYEES', 'EVALUATIONS' ]
+        let header = [ 'EMPLOYEES', 'EVALUATIONS' ];
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })

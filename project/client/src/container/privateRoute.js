@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { checkCookie } from '../utils/cookies';
+import MyProfile from "../pages/MyProfile";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route { ...rest } render={props => (

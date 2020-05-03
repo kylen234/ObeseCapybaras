@@ -31,18 +31,30 @@ loginUser = (req, res) => {
 
         // Check if password matches
         user.comparePassword(password, function(error, isMatch) {
-            console.log(isMatch);
             if (isMatch && !error) {
                 let token = jwt.sign(user.toJSON(), "mongodb+srv://timothynguye:MisterMonkey80@obesecapy-d0xxf.mongodb.net/test?retryWrites=true&w=majority\"", {
                     expiresIn: 10080
                 });
-                return res.json({ success: true, token: 'JWT ' + token });
+                return res.json({
+                    success: true,
+                    token: 'JWT ' + token,
+                    companyId: user.companyId,
+                    _id: user.id
+                });
             }
 
             res.send(httpResponse.onAuthenticationFail);
         });
     });
 };
+
+function logoutUser(request, response) {
+    db.Employee.findOne({ _id: request.body.id }, { status: false }, (error, doc) => {
+        if (error) return response.json(error);
+        return response.json(doc);
+    });
+}
+
 
 createEmployee = (req, res) => {
     db.Employee.create(req.body)
@@ -87,6 +99,14 @@ getEmployeeID = (req, res) => {
         .catch(err => res.status(400).json(err));
 };
 
+getAllEmployeesByCompany = (req, res) => {
+    console.log(req.params);
+    db.Employee.find({companyId: req.body.companyId})
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the error to the client instead
+        .catch(err => res.status(400).json(err));
+}
+
 getEmail = (req, res) => {
     db.Employee.findOne({email: req.params.email})
         // Then send Employee's info back to client
@@ -115,4 +135,6 @@ module.exports = {
     getEmployeeID,
     getEmail,
     loginUser,
+    logoutUser,
+    getAllEmployeesByCompany
 };
