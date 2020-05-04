@@ -39,7 +39,14 @@ loginUser = (req, res) => {
                     success: true,
                     token: 'JWT ' + token,
                     companyId: user.companyId,
-                    _id: user.id
+                    _id: user.id,
+                    name: user.firstName + " " + user.lastName,
+                    companyName: user.companyName,
+                    employeeId: user.employeeId,
+                    email: user.email,
+                    startDate: user.startDate,
+                    personalReviews: user.personalReviews,
+                    outgoingReviews: user.outgoingReviews
                 });
             }
 
@@ -100,12 +107,11 @@ getEmployeeID = (req, res) => {
 };
 
 getAllEmployeesByCompany = (req, res) => {
-    console.log(req.query);
     db.Employee.find({companyId: req.query.companyId})
         .then(Employee => res.json(Employee))
         // If an error occurs, send the error to the client instead
         .catch(err => res.status(400).json(err));
-}
+};
 
 getEmail = (req, res) => {
     db.Employee.findOne({email: req.params.email})

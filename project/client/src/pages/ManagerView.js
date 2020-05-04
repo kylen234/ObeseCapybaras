@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/button'
 import {getCookie} from "../utils/cookies";
 import axios from 'axios';
 import EvaluationTable from '../pages/ViewEvaluations';
+import {loginUserAction} from "../actions/authenticationActions";
 
 class ManagerView extends Component {
     constructor(props) {

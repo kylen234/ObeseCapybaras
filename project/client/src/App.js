@@ -44,7 +44,19 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <Router>
-                    <Main />
+                    <SideNav/>
+                    <Wrapper>
+                        <Switch>
+                            <Route exact path="/" component={Login} />
+                            <PrivateRoute path='/submit-view' component={Submit} />
+                            <PrivateRoute path='/RequestEvaluations' component={RequestEvaluations} />
+                            <PrivateRoute path='/ReviewRequest' component={ReviewRequest} />
+                            <PrivateRoute path='/ViewEvaluations' component={ViewEvaluations} />
+                            <PrivateRoute path='/ManagerView' component={ManagerView} />
+                            <PrivateRoute path='/MyProfile' component={MyProfile} />
+                            <PrivateRoute path='/logout' component={LogoutComponent} />
+                        </Switch>
+                    </Wrapper>
                 </Router>
             </Provider>
         )

@@ -12,15 +12,18 @@ getReviewBody = (req, res) => {
         .then(review => res.json(review))
         // Else if and error occurs, send the err to the client
         .catch(err => res.status(422).json(err));
-},
+};
 
 // Create Review
 createReview = (req, res) => {
     db.Review.create(req.body)
     .then((newReview) => {
+        db.Employee.findOneAndUpdate({target: req.body.target},
+            {$push: { personalReviews: newReview}},
+            { new: true });
       // Update the Employee's personal reviews with the new review
       return db.Employee.findOneAndUpdate({_id: req.params.id},
-                    {$push: { personalReviews: newReview}},
+                    {$push: { outgoingReviews: newReview}},
                     { new: true })
     })
     // If we were able to successfully update the employee, then send
@@ -69,6 +72,21 @@ assignToReview = (req, res) => {
 
 // Method for trading review id from employee for review
 // body to display to client
+
+getManagerEmployees = (req, res) => {
+    db.Employee.find({_id: req.params.id}, {status: false}, (error, doc) => {
+        if(error) return res.json(error);
+        this.getEmployeeID(req.params.id)
+            .then()
+    })
+};
+
+function getEmployeeID(id)  {
+    db.Employee.find({_id: id})
+        .then(user => user.employeeId())
+        .catch(err => console.log("Error"));
+}
+
 getReview = (req, res) => {
   db.Review.findOne({_id: req.params.id})
       // If we successfully find a review, send it to the client.
@@ -76,6 +94,8 @@ getReview = (req, res) => {
       // Else if and error occurs, send the err to the client
       .catch(err => res.status(400).json(err));
 };
+
+
 
 module.exports = {
     createReview,

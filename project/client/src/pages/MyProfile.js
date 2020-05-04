@@ -6,9 +6,10 @@ import {getCookie, checkCookie} from "../utils/cookies";
 class MyProfile extends Component {
 
     render() {
-        //console.log(getCookie('token'));
-        //console.log(getCookie('id'));
-        //console.log(getCookie('companyID'))
+        console.log(getCookie('token'));
+        console.log(getCookie('id'));
+        console.log(getCookie('companyID'));
+        console.log(getCookie(''))
         return (
             <div>
                 <h1>My Profile</h1>

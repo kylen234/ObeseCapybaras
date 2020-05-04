@@ -2,6 +2,7 @@ import evaluations from '../components/evaluations';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import '../components/style.css';
+
 import axios from 'axios';
 import {getCookie} from "../utils/cookies";
 
