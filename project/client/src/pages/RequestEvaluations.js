@@ -4,39 +4,15 @@ import { Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Checkbox from '../components/Checkbox';
-import {getCookie} from "../utils/cookies";
+import {getCookie, setCookie} from "../utils/cookies";
 
 class RequestEvaluations extends Component {
 
     constructor(props) {
         super(props);  //since we are extending class Table so we have to use super in order to override Component class constructor
-
-        let arr2 = [], id = "5e77804b4eadaea2ec995ae0", companyid = 3;
-
-        if(getCookie('id') !== undefined || getCookie('id') !== "") id = getCookie('id');
-        if(getCookie('companyId') !== undefined || getCookie('companyId') !== '') id = getCookie('companyId');
-        axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
-            params: {
-                id: getCookie('id'),
-                companyId: getCookie('companyId'),
-            }
-        })
-            .then(response => {
-                // If data comes back with a CastError, send error message to client
-                arr2 = response.data;
-                return response;
-            })
-            .catch(response => {
-                console.log(response);
-            });
-
-        this.state = {
-            people,
-            id: getCookie('id'),
-            companyId: getCookie('companyId'),
-            employees: {arr: []}
+        this.state ={
+            employees: [],
         };
-        this.state.employees.arr = arr2;
     };
 
     componentDidMount() {
@@ -46,17 +22,14 @@ class RequestEvaluations extends Component {
                 companyId: getCookie('companyId'),
             }
         })
-            .then(response => {
-                // If data comes back with a CastError, send error message to client
-                this.state.employees.arr = response.data;
-                return response;
-            })
-            .catch(response => {
-                console.log(response);
-            });
-    }
-
-    componentWillMount = () => {
+        .then(response => {
+            // If data comes back with a CastError, send error message to client
+            this.setState({employees: response.data});
+            return response;
+        })
+        .catch(response => {
+            console.log(response);
+        });
         this.selectedCheckboxes = new Set();
     };
 
@@ -85,7 +58,7 @@ class RequestEvaluations extends Component {
     );
 
     renderTableData() {
-        return this.state.employees.arr.map((employee) => {
+        return this.state.employees.map((employee) => {
             console.log(employee);
             const { firstName, lastName, positionTitle } = employee; //destructuring
             let name = firstName + " " + lastName;
@@ -95,9 +68,12 @@ class RequestEvaluations extends Component {
                         {name}, {positionTitle}
                     </td>
                     <td>
+                        {/*
                         <form onSubmit={this.handleFormSubmit}>
                             {this.createCheckbox()}
                         </form>
+                        */}
+                        <Button variant="success" align={"center"}>Accept</Button>{' '}
                     </td>
                 </tr>
             )
@@ -114,6 +90,7 @@ class RequestEvaluations extends Component {
 
 
     render() {
+        console.log(this.state.employees);
         return (
             <div>
                 <h1 id='title'>REQUEST EVALUATION</h1>
@@ -123,7 +100,6 @@ class RequestEvaluations extends Component {
                     {this.renderTableData()}
                     </tbody>
                 </table>
-                <SearchBar />
             </div>
         )
     }

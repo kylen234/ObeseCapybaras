@@ -39,7 +39,14 @@ loginUser = (req, res) => {
                     success: true,
                     token: 'JWT ' + token,
                     companyId: user.companyId,
-                    _id: user.id
+                    _id: user.id,
+                    name: user.firstName + " " + user.lastName,
+                    companyName: user.companyName,
+                    employeeId: user.employeeId,
+                    email: user.email,
+                    startDate: user.startDate,
+                    personalReviews: user.personalReviews,
+                    outgoingReviews: user.outgoingReviews
                 });
             }
 
@@ -100,12 +107,11 @@ getEmployeeID = (req, res) => {
 };
 
 getAllEmployeesByCompany = (req, res) => {
-    console.log(req.query);
     db.Employee.find({companyId: req.query.companyId})
         .then(Employee => res.json(Employee))
         // If an error occurs, send the error to the client instead
         .catch(err => res.status(400).json(err));
-}
+};
 
 getEmail = (req, res) => {
     db.Employee.findOne({email: req.params.email})
@@ -125,6 +131,33 @@ getAllEmployees = async(req, res) => {
         .catch(err => res.status(400).json(err));
 };
 
+getAllEmployeesUnderManager = async(req, res) => {
+    console.log(req.query);
+    await db.Employee.find({companyId: req.query.companyId})
+        .find({managerId: req.query.employeeId})
+        .then(Employees => res.json(Employees))
+        .catch(err => res.status(400).json(err));
+};
+
+// Create Request
+createRequest = (req, res) => {
+    db.Review.create(req.body)
+        .then((newRequest) => {
+            db.Employee.findOneAndUpdate({target: req.body.target},
+                {$push: { othersRequests: newRequest}},
+                { new: true });
+            // Update the Employee's personal reviews with the new review
+            return db.Employee.findOneAndUpdate({_id: req.params.id},
+                {$push: { yourRequests: newRequest}},
+                { new: true })
+        })
+        // If we were able to successfully update the employee, then send
+        // the updated employee information back to the client
+        .then(employee => res.json(employee))
+        // Else if an error occurred, sent it to the client
+        .catch(err => res.status(400).json(err));
+};
+
 
 module.exports = {
     createEmployee,
@@ -136,5 +169,7 @@ module.exports = {
     getEmail,
     loginUser,
     logoutUser,
-    getAllEmployeesByCompany
+    getAllEmployeesByCompany,
+    getAllEmployeesUnderManager,
+    createRequest
 };

@@ -10,6 +10,9 @@ router.get('/getEmail/:email', EmployeeCtrl.getEmail);
 router.post('/login', EmployeeCtrl.loginUser);
 router.post('/logout', EmployeeCtrl.logoutUser);
 router.get('/getEmployeeByCompany', EmployeeCtrl.getAllEmployeesByCompany);
+router.get('/getEmployeesUnderManager', EmployeeCtrl.getAllEmployeesUnderManager);
+
+router.post('/createRequest/:id', EmployeeCtrl.createRequest);
 
 
 module.exports = router;

@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { loginUserAction } from '../actions/authenticationActions';
 import {Redirect} from "react-router-dom";
-import {getCookie, checkCookie} from "../utils/cookies";
+import {getCookie, checkCookie, setCookie} from "../utils/cookies";
 
 class MyProfile extends Component {
 
     render() {
-        //console.log(getCookie('token'));
-        //console.log(getCookie('id'));
-        //console.log(getCookie('companyID'))
+        console.log(getCookie('token'));
+        console.log(getCookie('id'));
+        console.log(getCookie('companyID'));
+        console.log(getCookie('companyName'));
+        console.log(getCookie('employeeId'));
+        console.log(getCookie('email'));
+        console.log(getCookie('name'));
+        console.log(getCookie('startDate'));
+        console.log(getCookie('outgoingReviews'));
+        console.log(getCookie('personalReviews'));
+
         return (
             <div>
                 <h1>My Profile</h1>

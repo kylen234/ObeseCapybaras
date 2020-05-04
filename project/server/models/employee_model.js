@@ -4,14 +4,23 @@ const bcrypt = require('bcrypt');
 
 const reviewSchema = new Schema({
         author: { type: Schema.Types.ObjectID, ref: "Employee"},
+        authorName: {type: String},
         target: { type: Schema.Types.ObjectID, ref: "Employee"},
+        targetName: {type: String},
         description: { type: String, required: true },
-        employeeFeedback: { type: String },
-        reviewerFeedback: [{ type: String }],
-        isReviewed: { type: Boolean, default: false},
         timestamp: {type: Date, default: new Date()}
     },
 );
+
+const requestEvaluationsSchema = new Schema({
+    author: { type: Schema.Types.ObjectID, ref: "Employee"},
+    authorName: {type: String},
+    target: { type: Schema.Types.ObjectID, ref: "Employee"},
+    targetName: {type: String},
+    description: { type: String, required: true },
+    timestamp: {type: Date, default: new Date()}
+});
+
 
 const employeeSchema = new Schema(
     {
@@ -30,6 +39,12 @@ const employeeSchema = new Schema(
         },
         outgoingReviews: {
             type: [reviewSchema]
+        },
+        yourRequests: {
+            type: [requestEvaluationsSchema]
+        },
+        othersRequests: {
+            type: [requestEvaluationsSchema]
         }
     }
 );
@@ -68,9 +83,6 @@ employeeSchema.methods.comparePassword = function(pw, cb) {
         } else {
                 cb(null, false);
         }
-
-
-
 
         /*
         bcrypt.compare(pw, this.password, function(err, isMatch) {

@@ -2,7 +2,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { loginSaga } from './authenticationSaga';
 import { logoutSaga } from "./authenticationSaga";
-
 import * as types from '../actions';
 
 

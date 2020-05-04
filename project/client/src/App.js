@@ -44,7 +44,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <Router>
-                    <Main />
+                    <Main/>
                 </Router>
             </Provider>
         )

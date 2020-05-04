@@ -1,49 +1,91 @@
 // JavaScript source code
-import people from '../components/people';
+import Information from '../components/DummyData';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import '../components/style.css';
 import Button from 'react-bootstrap/button'
 import {getCookie} from "../utils/cookies";
 import axios from 'axios';
+import EvaluationTable from '../pages/ViewEvaluations';
+import {loginUserAction} from "../actions/authenticationActions";
+import {Redirect} from "react-router";
 
 class ManagerView extends Component {
     constructor(props) {
         super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
-            people,
-            id: getCookie('id'),
-            companyId: getCookie('companyId'),
+            employees: [],
+            viewingEmployees: false,
+            otherReviews: []
         }
     }
-    renderTableData() {
-         axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
-                params: {
-                    id: this.state.id,
-                    companyId: this.state.companyId
-                }
-            })
-            .then(response => {
-                // If data comes back with a CastError, send error message to client
-                console.log(response);
-                return response;
-            }).then(json => {
-                return json;
+
+    componentDidMount () {
+        axios.get(`http://localhost:3000/collection2/getEmployeesUnderManager`, {
+            params: {
+                id: getCookie('id'),
+                companyId: getCookie('companyId'),
+                employeeId: getCookie('employeeId'),
+                managerId: getCookie('managerId')
+            }
+        })
+        .then(response => {
+            // If data comes back with a CastError, send error message to client
+            this.setState({employees: response.data});
+            console.log(response);
+            return response;
+        }).then(json => {
+            return json;
         });
-        return this.state.people.map((people) => {
-            const { background, imgSrc, imgBorderColor, name, title, mobileNo, location, role } = people //destructuring
+    };
+
+    renderManagerTable() {
+        return this.state.employees.map((employee) => {
+            const { firstName, lastName, companyId, positionTitle, employeeId, email } = employee; //destructuring
+            console.log(employee.outgoingReviews);
             return (
-                <tr key={name}>
+                <tr key={firstName}>
                     <td>
-                        <ProfilePicture imgSrc={imgSrc}/> {name}, {title}
+                        <div>{firstName} {lastName}, {positionTitle}</div>
+                        <div>{email}</div>
                     </td>
                     <td>
-                        <Button variant="success">View Evaluations</Button>
+                        <div>
+                            <Button id="employee" value={employee} variant="success" align={"center"} onClick={this.showEvaluations}>View Evaluations</Button>
+                        </div>
+                        {/*<div><Button variant="success" align={"center"} onClick={this.showEvaluations}>View Evaluations</Button></div>*/}
                     </td>
                 </tr>
             )
         })
     }
+    renderEmployeeTable() {
+        return this.state.otherReviews.map((employee) => {
+            const {  email, description, author } = employee; //destructuring
+            return (
+                <tr key={email}>
+                    <td>
+                        <div>{email}</div>
+                        <div>{author}</div>
+                    </td>
+                    <td>
+                        <div>{description}</div>
+                    </td>
+                </tr>
+            )
+        })
+    }
+
+    showEvaluations = (event) => {
+        event.preventDefault();
+
+        this.setState({viewingEmployees: true});
+        let employee = event.target;
+        console.log(Object.values(employee)[1].value);
+
+        this.setState({otherReviews: Object.values(employee)[1].value.outgoingReviews});
+    };
 
     renderTableHeader() {
         let header = [ 'EMPLOYEES', 'EVALUATIONS' ];
@@ -52,18 +94,45 @@ class ManagerView extends Component {
         })
     }
 
+    back = (event) => {
+        // this.setState({viewingEmployees: false});
+        // this.forceUpdate();
+        event.preventDefault();
+
+        this.setState({viewingEmployees: false});
+        //console.log(this.state.viewingEmployees);
+        //let employee = event.target;
+        //console.log(employee);
+    }
+
     render() {
-        return (
-            <div>
-                <h1 id='title'>Your Direct Reports</h1>
-                <table id='evaluations'>
-                    <tbody>
+        if (this.state.viewingEmployees === false) {
+            return (
+                <div id="root">
+                    <h1 id='title'>Your Direct Reports</h1>
+                    <table id='evaluations'>
+                        <tbody>
                         <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                    </tbody>
-                </table>
-            </div>
-        )
+                        {this.renderManagerTable()}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        } else if(this.state.viewingEmployees === true){
+            return(
+                <div id="root">
+                    <Button variant="success" onClick={this.back}>Back</Button>
+                    <h1 id='title'>Your Direct Reports</h1>
+                    <table id='evaluations'>
+                        <tbody>
+                        <tr>{this.renderTableHeader()}</tr>
+                        {this.renderEmployeeTable()}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
     }
 }
 
