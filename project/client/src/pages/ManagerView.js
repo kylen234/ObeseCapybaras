@@ -1,24 +1,26 @@
 // JavaScript source code
-import people from '../components/people';
+import Information from '../components/DummyData';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import '../components/style.css';
 import Button from 'react-bootstrap/button'
 import {getCookie} from "../utils/cookies";
 import axios from 'axios';
+import EvaluationTable from '../pages/ViewEvaluations';
 import {loginUserAction} from "../actions/authenticationActions";
 
 class ManagerView extends Component {
     constructor(props) {
         super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
-            people,
+            employees: Information,
             id: getCookie('id'),
             companyId: getCookie('companyId'),
+            viewingEmployees: false
         }
     }
-
-    renderTableData() {
+    renderManagerTable() {
          axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
                 params: {
                     id: this.state.id,
@@ -32,19 +34,31 @@ class ManagerView extends Component {
             }).then(json => {
                 return json;
         });
-        return this.state.people.map((people) => {
-            const { background, imgSrc, imgBorderColor, name, title, mobileNo, location, role } = people //destructuring
+        return this.state.employees.map((people) => {
+            const { firstName, lastName, companyId, positionTitle, employeeId, email } = people //destructuring
             return (
-                <tr key={name}>
+                <tr key={firstName}>
                     <td>
-                        <ProfilePicture imgSrc={imgSrc}/> {name}, {title}
+                        <div>{firstName} {lastName}, {positionTitle}</div>
+                        <div>{email}</div>
                     </td>
                     <td>
-                        <Button variant="success">View Evaluations</Button>
+                        <div><Button variant="success" align={"center"} onClick={this.showEvaluations()}>View Evaluations</Button></div>
                     </td>
                 </tr>
             )
         })
+    }
+
+    showEvaluations() {
+        
+        const employeeEvaluations = (
+        <div>
+            <EvaluationTable></EvaluationTable>;
+            <Button variant="success" onClick={this.back()}>Back</Button>
+        </div>
+        );
+        return employeeEvaluations;
     }
 
     renderTableHeader() {
@@ -54,18 +68,28 @@ class ManagerView extends Component {
         })
     }
 
+    back() {
+        this.state.viewingEmployees = false;
+        // this.forceUpdate();
+    }
+
     render() {
-        return (
-            <div>
-                <h1 id='title'>Your Direct Reports</h1>
-                <table id='evaluations'>
-                    <tbody>
-                        <tr>{this.renderTableHeader()}</tr>
-                        {this.renderTableData()}
-                    </tbody>
-                </table>
-            </div>
-        )
+        if (this.state.viewingEmployees === false) {
+            return (
+                <div id="root">
+                    <h1 id='title'>Your Direct Reports</h1>
+                    <table id='evaluations'>
+                        <tbody>
+                            <tr>{this.renderTableHeader()}</tr>
+                            {this.renderManagerTable()}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+        else {
+            return this.showEvaluations();
+        }
     }
 }
 

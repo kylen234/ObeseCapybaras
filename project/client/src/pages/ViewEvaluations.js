@@ -2,22 +2,38 @@ import evaluations from '../components/evaluations';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import '../components/style.css';
-import axios from "axios";
+
+import axios from 'axios';
 import {getCookie} from "../utils/cookies";
 
 class EvaluationTable extends Component {
     constructor(props) {
-        super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = { evaluations };
+        super(props)
+        this.state = {
+            id: getCookie('id'),
+            companyId: getCookie('companyId'),
+            evaluations: []
+        };
+        // let id = "5e77804b4eadaea2ec995ae0";
+        // if(getCookie('id') !== undefined || getCookie('id') !== "") id = getCookie('id');
+        // axios.get(`http://localhost:3000/collection2/getEmployee/` + id)
+        //     .then(response => {
+        //         // If data comes back with a CastError, send error message to client
+        //         console.log(response.data.personalReviews);
+        //         this.setState({evaluations: response.data.personalReviews})
+        //         return response;
+        //     })
+        //     .catch(response => {
+        //         console.log(response);
+        //     });
     }
 
-    componentWillMount() {
-        let id = getCookie('id');
-        axios.get(`http://localhost:3000/collection2/`+id, {
-        })
+    componentDidMount() {
+        axios.get(`http://localhost:3000/collection2/getEmployee/` + this.state.id)
             .then(response => {
                 // If data comes back with a CastError, send error message to client
-                this.setState({employees: response.data});
+                console.log(response.data.personalReviews);
+                this.setState({evaluations: response.data.personalReviews})
                 return response;
             })
             .catch(response => {
@@ -26,20 +42,20 @@ class EvaluationTable extends Component {
     }
 
     renderTableData() {
-        return this.state.evaluations.map((evaluations) => {
-            const { from, evaluation, date } = evaluations //destructuring
+        return this.state.evaluations.map((evaluation) => {
+            const { _id, author, description, timestamp } = evaluation //destructuring
             return (
-                <tr key={from}>
-                    <td>{from}</td>
-                    <td>{evaluation}</td>
-                    <td>{date}</td>
+                <tr key={_id}>
+                    <td>{author}</td>
+                    <td>{description}</td>
+                    <td>{timestamp}</td>
                 </tr>
             )
         })
     }
 
     renderTableHeader() {
-        let header = Object.keys(this.state.evaluations[0])
+        let header = ["from", "evaluation", "date"]
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
