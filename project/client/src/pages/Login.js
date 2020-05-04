@@ -38,8 +38,8 @@ class Login extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.response.login.hasOwnProperty('response')) {
             if (nextProps.response.login.response.data.success !== prevState.isSuccess) {
-                setCookie('token', nextProps.response.login.response.data.token, 1);
-                setCookie('id', nextProps.response.login.response.data._id, 1);
+                setCookie('token', nextProps.response.login.response.data.token, 100);
+                setCookie('id', nextProps.response.login.response.data._id, 100);
                 setCookie('companyId', nextProps.response.login.response.data.companyId, 100);
                 return {
                     isSuccess: nextProps.response.login.response.data.success,
@@ -58,7 +58,6 @@ class Login extends Component {
 
     render() {
         console.log(this.state.isSuccess);
-
 
         if(this.state.isSuccess) {
             return <Redirect to='./MyProfile'/>;

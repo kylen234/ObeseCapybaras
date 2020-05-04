@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {Login} from "../pages";
+import ManagerView from "../pages/ManagerView";
+import {loginUserAction} from "../actions/authenticationActions";
+import {getCookie} from "../utils/cookies";
 
 const Collapse = styled.div.attrs({
     className: 'collpase navbar-collapse',
@@ -18,6 +21,7 @@ const Item = styled.div.attrs({
 })``;
 
 class Links extends Component {
+
     render() {
         return (
             <React.Fragment>
@@ -34,7 +38,7 @@ class Links extends Component {
                         <Item>
                             <Link to="/ManagerView" style={{color: '#FFF'}} className="nav-link">
                                 View Direct Reports
-                             </Link>   
+                             </Link>
                         </Item>
                         <Item>
                             <Link to="/RequestEvaluations" style={{color: '#FFF'}} className="nav-link">

@@ -6,6 +6,7 @@ import '../components/style.css';
 import Button from 'react-bootstrap/button'
 import {getCookie} from "../utils/cookies";
 import axios from 'axios';
+import {loginUserAction} from "../actions/authenticationActions";
 
 class ManagerView extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class ManagerView extends Component {
             companyId: getCookie('companyId'),
         }
     }
+
     renderTableData() {
          axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
                 params: {

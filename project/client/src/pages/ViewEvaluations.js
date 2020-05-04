@@ -2,12 +2,29 @@ import evaluations from '../components/evaluations';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import '../components/style.css';
+import axios from "axios";
+import {getCookie} from "../utils/cookies";
 
 class EvaluationTable extends Component {
     constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+        super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = { evaluations };
     }
+
+    componentWillMount() {
+        let id = getCookie('id');
+        axios.get(`http://localhost:3000/collection2/`+id, {
+        })
+            .then(response => {
+                // If data comes back with a CastError, send error message to client
+                this.setState({employees: response.data});
+                return response;
+            })
+            .catch(response => {
+                console.log(response);
+            });
+    }
+
     renderTableData() {
         return this.state.evaluations.map((evaluations) => {
             const { from, evaluation, date } = evaluations //destructuring
