@@ -15,7 +15,7 @@ class RequestEvaluations extends Component {
         };
     };
 
-    componentDidMount () {
+    componentDidMount() {
         axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
             params: {
                 id: getCookie('id'),
@@ -68,9 +68,12 @@ class RequestEvaluations extends Component {
                         {name}, {positionTitle}
                     </td>
                     <td>
+                        {/*
                         <form onSubmit={this.handleFormSubmit}>
                             {this.createCheckbox()}
                         </form>
+                        */}
+                        <Button variant="success" align={"center"}>Accept</Button>{' '}
                     </td>
                 </tr>
             )

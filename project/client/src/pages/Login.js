@@ -37,10 +37,19 @@ class Login extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.response.login.hasOwnProperty('response')) {
+            console.log(nextProps.response.login.response.data);
             if (nextProps.response.login.response.data.success !== prevState.isSuccess) {
-                setCookie('token', nextProps.response.login.response.data.token, 100);
-                setCookie('id', nextProps.response.login.response.data._id, 100);
-                setCookie('companyId', nextProps.response.login.response.data.companyId, 100);
+                setCookie('token', nextProps.response.login.response.data.token, 1000);
+                setCookie('id', nextProps.response.login.response.data._id, 1000);
+                setCookie('companyId', nextProps.response.login.response.data.companyId, 1000);
+                setCookie('companyName', nextProps.response.login.response.data.companyName, 1000);
+                setCookie('employeeId', nextProps.response.login.response.data.employeeId, 1000);
+                setCookie('email', nextProps.response.login.response.data.email, 1000);
+                setCookie('name', nextProps.response.login.response.data.name, 1000);
+                setCookie('startDate', nextProps.response.login.response.data.startDate, 1000);
+                setCookie('outgoingReviews', nextProps.response.login.response.data.outgoingReviews, 1000);
+                setCookie('personalReviews', nextProps.response.login.response.data.personalReviews, 1000);
+
                 return {
                     isSuccess: nextProps.response.login.response.data.success,
                     message: "SUCCESS"

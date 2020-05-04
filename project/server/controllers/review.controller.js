@@ -60,8 +60,8 @@ deleteReview = (req, res) => {
 assignToReview = (req, res) => {
     // Find Employee who's ID is equal to req.params.employeeID
     // and push req.params.reviewID into 'otherEmployeeReviews' array
-    db.Employee.findOneAndUpdate({_id: req.params.employeeID},
-        { $addToSet: { outgoingReviews: req.params.reviewID }},
+    db.Employee.findOneAndUpdate({_id: req.params.id},
+        { $addToSet: { outgoingReviews: req.params.reviewID}},
         { safe: true, upsert: true, new: true})
         // If employee was successfully updated with with new review,
         // return updated employee info to client

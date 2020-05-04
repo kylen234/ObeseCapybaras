@@ -3,11 +3,10 @@ const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
         author: { type: Schema.Types.ObjectID, ref: "Employee"},
+        authorName: {type: String},
         target: { type: Schema.Types.ObjectID, ref: "Employee"},
+        targetName: {type: String},
         description: { type: String, required: true },
-        employeeFeedback: { type: String },
-        reviewerFeedback: [{ type: String }],
-        isReviewed: { type: Boolean, default: false},
         timestamp: {type: Date, default: new Date()}
     },
 );

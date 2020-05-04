@@ -14,18 +14,6 @@ class EvaluationTable extends Component {
             companyId: getCookie('companyId'),
             evaluations: []
         };
-        // let id = "5e77804b4eadaea2ec995ae0";
-        // if(getCookie('id') !== undefined || getCookie('id') !== "") id = getCookie('id');
-        // axios.get(`http://localhost:3000/collection2/getEmployee/` + id)
-        //     .then(response => {
-        //         // If data comes back with a CastError, send error message to client
-        //         console.log(response.data.personalReviews);
-        //         this.setState({evaluations: response.data.personalReviews})
-        //         return response;
-        //     })
-        //     .catch(response => {
-        //         console.log(response);
-        //     });
     }
 
     componentDidMount() {
