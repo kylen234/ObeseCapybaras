@@ -12,6 +12,7 @@ class RequestEvaluations extends Component {
         super(props);  //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state ={
             employees: [],
+            search:null
         };
     };
 
@@ -57,8 +58,21 @@ class RequestEvaluations extends Component {
         />
     );
 
+    searchSpace=(event)=>{
+        let keyword = event.target.value;
+        this.setState({search:keyword})
+      }
+
     renderTableData() {
-        return this.state.employees.map((employee) => {
+        return this.state.employees.filter((employee)=>{
+            if(this.state.search == null)
+                return employee
+            else if(employee.firstName.toLowerCase().includes(this.state.search.toLowerCase())
+                || employee.lastName.toLowerCase().includes(this.state.search.toLowerCase())
+                || employee.positionTitle.toLowerCase().includes(this.state.search.toLowerCase())){
+                return employee
+            }
+        }).map((employee) => {
             console.log(employee);
             const { firstName, lastName, positionTitle } = employee; //destructuring
             let name = firstName + " " + lastName;
@@ -91,8 +105,19 @@ class RequestEvaluations extends Component {
 
     render() {
         console.log(this.state.employees);
+        const elementStyle ={
+            border:'solid',
+            borderRadius:'10px',
+            position:'relative',
+            left:'10vh',
+            height:'4vh',
+            width:'40vh',
+            marginTop:'5vh',
+            marginBottom:'10vh'
+          }
         return (
             <div>
+                <input type="text" placeholder="Search for person" style= {elementStyle} onChange={(e)=>this.searchSpace(e)} />
                 <h1 id='title'>REQUEST EVALUATION</h1>
                 <table id='evaluations'>
                     <tbody>
