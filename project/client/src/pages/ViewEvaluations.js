@@ -8,7 +8,7 @@ import {getCookie} from "../utils/cookies";
 
 class EvaluationTable extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             id: getCookie('id'),
             companyId: getCookie('companyId'),

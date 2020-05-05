@@ -18,6 +18,7 @@ const requestEvaluationsSchema = new Schema({
     target: { type: Schema.Types.ObjectID, ref: "Employee"},
     targetName: {type: String},
     description: { type: String, required: true },
+    status: {type: String, required: true},
     timestamp: {type: Date, default: new Date()}
 });
 

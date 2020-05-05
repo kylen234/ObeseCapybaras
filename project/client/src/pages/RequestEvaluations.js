@@ -68,12 +68,10 @@ class RequestEvaluations extends Component {
                         {name}, {positionTitle}
                     </td>
                     <td>
-                        {/*
                         <form onSubmit={this.handleFormSubmit}>
                             {this.createCheckbox()}
                         </form>
-                        */}
-                        <Button variant="success" align={"center"}>Accept</Button>{' '}
+                        {/*<Button variant="success" align={"center"}>Accept</Button>{' '}*/}
                     </td>
                 </tr>
             )

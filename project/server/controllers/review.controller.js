@@ -18,9 +18,6 @@ getReviewBody = (req, res) => {
 createReview = (req, res) => {
     db.Review.create(req.body)
     .then((newReview) => {
-        db.Employee.findOneAndUpdate({target: req.body.target},
-            {$push: { personalReviews: newReview}},
-            { new: true });
       // Update the Employee's personal reviews with the new review
       return db.Employee.findOneAndUpdate({_id: req.params.id},
                     {$push: { outgoingReviews: newReview}},
@@ -61,7 +58,7 @@ assignToReview = (req, res) => {
     // Find Employee who's ID is equal to req.params.employeeID
     // and push req.params.reviewID into 'otherEmployeeReviews' array
     db.Employee.findOneAndUpdate({_id: req.params.id},
-        { $addToSet: { outgoingReviews: req.params.reviewID}},
+        { $push: { personalReviews: req.params.reviewID}},
         { safe: true, upsert: true, new: true})
         // If employee was successfully updated with with new review,
         // return updated employee info to client

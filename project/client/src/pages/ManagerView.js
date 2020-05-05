@@ -54,7 +54,6 @@ class ManagerView extends Component {
                         <div>
                             <Button id="employee" value={employee} variant="success" align={"center"} onClick={this.showEvaluations}>View Evaluations</Button>
                         </div>
-                        {/*<div><Button variant="success" align={"center"} onClick={this.showEvaluations}>View Evaluations</Button></div>*/}
                     </td>
                 </tr>
             )
