@@ -4,9 +4,7 @@ const bcrypt = require('bcrypt');
 
 const reviewSchema = new Schema({
         author: { type: Schema.Types.ObjectID, ref: "Employee"},
-        authorName: {type: String},
         target: { type: Schema.Types.ObjectID, ref: "Employee"},
-        targetName: {type: String},
         description: { type: String, required: true },
         timestamp: {type: Date, default: new Date()}
     },
@@ -14,10 +12,8 @@ const reviewSchema = new Schema({
 
 const requestEvaluationsSchema = new Schema({
     author: { type: Schema.Types.ObjectID, ref: "Employee"},
-    authorName: {type: String},
     target: { type: Schema.Types.ObjectID, ref: "Employee"},
-    targetName: {type: String},
-    description: { type: String, required: true },
+    accepted: {type:Boolean, default: false},
     timestamp: {type: Date, default: new Date()}
 });
 
