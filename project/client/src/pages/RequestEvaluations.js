@@ -73,7 +73,7 @@ class RequestEvaluations extends Component {
                             {this.createCheckbox()}
                         </form>
                         */}
-                        <Button variant="success" align={"center"}>Accept</Button>{' '}
+                        <Button variant="success" align={"center"}>Request</Button>{' '}
                     </td>
                 </tr>
             )
