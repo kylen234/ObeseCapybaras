@@ -1,6 +1,13 @@
 import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "react-bootstrap";
-import { Jumbotron as Jumbo, Container, Form, FormControl, FormGroup, Button } from "react-bootstrap";
+import {
+  Jumbotron as Jumbo,
+  Container,
+  Form,
+  FormControl,
+  FormGroup,
+  Button,
+} from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import axios from "axios";
@@ -43,8 +50,6 @@ class Submit extends React.Component {
     event.preventDefault();
 
     // We'll put the info
-
-
   }
 
   render() {
@@ -77,26 +82,24 @@ class Submit extends React.Component {
                           Evaluation:
                         </h3>
                         */}
-                        <div>
-                          Courtesy of{" "}
-                          <img
-                            src={logo}
-                            style={{ height: 60, width: 60 }}
-                            img
-                          />
-                        </div>
-                        <div>
-                          <Form>
-                            <Form.Group controlId="exampleForm.ControlTextarea1">
-                              <Form.Label>Evaluation</Form.Label>
-                              <Form.Control as="textarea"
-                                            placeholder="Your Review..."
-                                            rows="10"
-                                            value={this.state.value}
-                                            onChange={this.handleChange}/>
-                            </Form.Group>
-                          </Form>
-                          {/*
+                      <div>
+                        Courtesy of{" "}
+                        <img src={logo} style={{ height: 60, width: 60 }} img />
+                      </div>
+                      <div>
+                        <Form>
+                          <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Evaluation</Form.Label>
+                            <Form.Control
+                              as="textarea"
+                              placeholder="Your Review..."
+                              rows="10"
+                              value={this.state.value}
+                              onChange={this.handleChange}
+                            />
+                          </Form.Group>
+                        </Form>
+                        {/*
                           <textarea
                               rows={10}
                               cols={30}
@@ -106,9 +109,14 @@ class Submit extends React.Component {
                               align={"center"}
                           />
                           */}
-                        </div>
+                      </div>
                     </h2>
-                    <Button variant="primary" type="submit" value="Submit" bsSize="small">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      value="Submit"
+                      bsSize="small"
+                    >
                       Submit
                     </Button>
                   </form>

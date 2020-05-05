@@ -1,152 +1,166 @@
-import { CardStack, Card, people, SearchBar } from '../components';
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// JavaScript source code
+import Information from "../components/DummyData";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import "../components/style.css";
+import Button from "react-bootstrap/button";
+import { getCookie } from "../utils/cookies";
+import axios from "axios";
+import EvaluationTable from "../pages/ViewEvaluations";
+import { loginUserAction } from "../actions/authenticationActions";
+import { Redirect } from "react-router";
 
-const ReviewRequest = (props) => (
-    <div>
-        <ul>
-            <h1 align={"center"}>Review Evaluations!</h1>
-        </ul>
-        <CardStack
-            height={500}
-            width="full"
-            background="#f8f8f8"
-            hoverOffset={25}>
-
-            {people.map((person, i) =>
-                <Card
-                    key={i}
-                    background={person.background}>
-                    <TeamMemberCard {...person} />
-                </Card>
-            )}
-        </CardStack>
-        <div>
-        </div>
-    </div>
-);
-
-const ProfilePicture = ({ imgSrc, borderColor }) => (
-    <img
-        style={{
-            width: '60px',
-            height: '60px',
-            borderRadius: '100%',
-            border: `3px solid ${borderColor}`,
-        }}
-        src={imgSrc}
-    />
-);
-
-const DetailsRow = ({ icon, title, summary }) => {
-    const renderSummary = () => {
-        if (summary)	return (
-            <p style={{ fontWeight: 300, lineHeight: 1.45 }}>
-                {summary}
-            </p>
-        );
-        return null;
+class ReviewRequest extends Component {
+  constructor(props) {
+    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    this.state = {
+      employees: [],
+      viewingEmployees: false,
+      otherReviews: [],
     };
+  }
 
-    return (
-        <div style={styles.detailsRow.row}>
-			<span
-                className={`icon ${icon}`}
-                style={{ ...styles.detailsRow.icon, alignSelf: 'flex-start' }}
-            />
-            <div style={{ width: '80%' }}>
-                <h2 style={styles.detailsRow.title}>
-                    {title}
-                </h2>
-                {renderSummary()}
-            </div>
-        </div>
-    );
-};
+  componentDidMount() {
+    axios
+      .get(`http://localhost:3000/collection2/getEmployeesUnderManager`, {
+        params: {
+          id: getCookie("id"),
+          companyId: getCookie("companyId"),
+          employeeId: getCookie("employeeId"),
+          managerId: getCookie("managerId"),
+        },
+      })
+      .then((response) => {
+        // If data comes back with a CastError, send error message to client
+        this.setState({ employees: response.data });
+        console.log(response);
+        return response;
+      })
+      .then((json) => {
+        return json;
+      });
+  }
 
-const TeamMemberCard = (props) => (
-    <div style={{ position: 'absolute', top: 0 }} onClick={props.onClick}>
-        <header style={styles.cardHeader} className='card-header-details'>
-            <ProfilePicture imgSrc={props.imgSrc} borderColor={props.imgBorderColor} />
+  renderManagerTable() {
+    return this.state.employees.map((employee) => {
+      const {
+        firstName,
+        lastName,
+        companyId,
+        positionTitle,
+        employeeId,
+        email,
+        _id,
+      } = employee; //destructuring
+      console.log(employee.outgoingReviews);
+      return (
+        <tr key={firstName}>
+          <td>
             <div>
-                <h1 style={styles.headerName}>{props.name}</h1>
-                <h3 style={styles.headerTitle} className='icon ion-ios-arrow-down'>{props.title}</h3>
+              {firstName} {lastName}, {positionTitle}
             </div>
-        </header>
+            <div>{email}</div>
+          </td>
+          <td>
+            <div>
+              <Button
+                id="employee"
+                value={employee}
+                variant="success"
+                align={"center"}
+                onClick={this.acceptRequest}
+              >
+                Accept
+              </Button>
+              <br></br>
+              <Button
+                variant="danger"
+                align={"center"}
+                //</div>onClick={this.acceptRequest}
+              >
+                Decline
+              </Button>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  }
+  renderEmployeeTable() {
+    return this.state.otherReviews.map((employee) => {
+      const { email, description, author } = employee; //destructuring
+      return (
+        <tr key={email}>
+          <td>
+            <div>{email}</div>
+            <div>{author}</div>
+          </td>
+          <td>
+            <div>{description}</div>
+          </td>
+        </tr>
+      );
+    });
+  }
 
-        <div style={{color: '#fff'}}>
-            <DetailsRow
-                icon='ion-ios-telephone-outline'
-                title={props.mobileNo}
-            />
+  acceptRequest = (event) => {
+    event.preventDefault();
 
-            <DetailsRow
-                icon='ion-ios-location-outline'
-                title={props.location}
-            />
+    //this.setState({ viewingEmployees: true });
+    let employee = event.target;
 
-            <DetailsRow
-                icon='icon ion-ios-paper-outline'
-                title='Main Role'
-                summary={props.role}
-            />
+    console.log(employee);
+  };
+
+  renderTableHeader() {
+    let header = ["EMPLOYEES", "REQUESTS"];
+    return header.map((key, index) => {
+      return <th key={index}>{key.toUpperCase()}</th>;
+    });
+  }
+
+  back = (event) => {
+    // this.setState({viewingEmployees: false});
+    // this.forceUpdate();
+    event.preventDefault();
+
+    this.setState({ viewingEmployees: false });
+    //console.log(this.state.viewingEmployees);
+    //let employee = event.target;
+    //console.log(employee);
+  };
+
+  render() {
+    if (this.state.viewingEmployees === false) {
+      return (
+        <div id="root">
+          <h1 id="title">Requests</h1>
+          <table id="evaluations">
+            <tbody>
+              <tr>{this.renderTableHeader()}</tr>
+              {this.renderManagerTable()}
+            </tbody>
+          </table>
         </div>
-        <Button href = "/submit-view" variant="success" align={"center"}>Accept</Button>{' '}
-        <Button variant="danger" align={"center"}>Decline</Button>
-    </div>
-);
-
-const styles = {
-    cardHeader: {
-        display: 'flex',
-        height: '125px',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '10px 20px',
-        color: '#fff',
-    },
-    headerName: {
-        margin: 0,
-        fontWeight: 500,
-        fontSize: '25px',
-        textAlign: 'right'
-    },
-    headerTitle: {
-        margin: '4px 0 0',
-        fontWeight: 300,
-        fontSize: '17px',
-        opacity: 0.8,
-        textAlign: 'right'
-    },
-    detailsRow: {
-        row: {
-            width: '100%',
-            padding: '0 20px',
-            display: 'flex',
-            alignItems: 'center',
-            margin: '25px 0',
-        },
-        icon: {
-            display: 'block',
-            width: '25px',
-            height: '30px',
-            margin: '0 20px 0 0',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.8)',
-            textAlign: 'center',
-            fontSize: '22px',
-        },
-        title: {
-            fontWeight: 500,
-            fontSize: '20px',
-            margin: 0,
-            fontStyle: 'italic',
-        },
-    },
-    messages: {
-        position: 'relative',
-        paddingTop: '50px',
-    },
-};
+      );
+    } else if (this.state.viewingEmployees === true) {
+      return (
+        <div id="root">
+          <Button variant="success" onClick={this.back}>
+            Back
+          </Button>
+          <h1 id="title">Your Direct Reports</h1>
+          <table id="evaluations">
+            <tbody>
+              <tr>{this.renderTableHeader()}</tr>
+              {this.renderEmployeeTable()}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+  }
+}
 
 export default ReviewRequest;
