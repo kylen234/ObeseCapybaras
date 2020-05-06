@@ -40,6 +40,37 @@ class ReviewRequest extends Component {
       });
   }
 
+  decline(id)
+  {
+    axios
+        .delete(
+            `http://localhost:3000/collection2/deleteRequest/` + getCookie("id"),
+            {
+              yourRequests: {
+                author: id,
+              },
+            }
+        )
+        .then((response) => {
+          // If data comes back with a CastError, send error message to client
+          console.log(response);
+        });
+    axios
+        .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
+          params: {
+            id: getCookie("id"),
+          },
+        })
+        .then((response) => {
+          // If data comes back with a CastError, send error message to client
+          this.setState({ requests: response.data.othersRequests });
+          return response;
+        })
+        .then((json) => {
+          return json;
+        });
+  }
+
   renderRequestTable() {
     return this.state.requests.map((request) => {
       const { firstName, lastName, _id, author } = request; //destructuring
@@ -60,7 +91,10 @@ class ReviewRequest extends Component {
               >
                 Accept
               </Button>{" "}
-              <Button variant="danger" align={"center"}>
+              <Button
+                  onClick={() => this.decline(author)}
+                  variant="danger"
+                  align={"center"}>
                 Decline
               </Button>
             </div>
