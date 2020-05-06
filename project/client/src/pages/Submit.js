@@ -55,13 +55,18 @@ class Submit extends React.Component {
     event.preventDefault();
 
     let target = this.props.request;
-    console.log("target");
-    console.log(target.value);
-    axios
-      .post('http://localhost:3000/review/createReview/' + target._id, { 
-          id: target._id,
-          review: this.state.value
+    console.log(target.target);
+    axios.put(`http://localhost:3000/collection2/updateEmployee/` + target.target, {
+          personalReviews : {
+            author: target._id,
+            target: target._id,
+            description: this.state.value,
+          }
       })
+        .then(response => {
+          // If data comes back with a CastError, send error message to client
+          console.log(response);
+        })
       
     // We'll put the info
   }
