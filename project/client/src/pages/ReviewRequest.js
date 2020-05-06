@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "../components/style.css";
 import Button from "react-bootstrap/button";
-import { getCookie } from "../utils/cookies";
+import { getCookie, setCookie } from "../utils/cookies";
 import axios from "axios";
 import EvaluationTable from "../pages/ViewEvaluations";
 import { loginUserAction } from "../actions/authenticationActions";
@@ -107,9 +107,8 @@ class ReviewRequest extends Component {
   acceptRequest = (event) => {
     event.preventDefault();
 
-    //this.setState({ viewingEmployees: true });
     let employee = event.target;
-
+    setCookie('viewEmployee', employee, 1000);
     console.log(employee);
   };
 
