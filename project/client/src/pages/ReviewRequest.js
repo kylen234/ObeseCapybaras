@@ -47,7 +47,7 @@ class ReviewRequest extends Component {
         // companyId,
         // positionTitle,
         // employeeId,
-        email,
+        // email,
         _id,
         author
       } = employee; //destructuring
@@ -58,7 +58,7 @@ class ReviewRequest extends Component {
             <div>
               {author}
             </div>
-            <div>{email}</div>
+            <div></div>
           </td>
           <td>
             <div>

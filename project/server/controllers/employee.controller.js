@@ -173,6 +173,14 @@ deleteRequest = (req, res) => {
         // If an error occurs, send the err to the client  instead
         .catch(err => res.status(422).json(err));
 };
+updateOthersRequests = (req, res) => {
+    // Find Employee by ID and update yourRequests to req.body.yourRequests
+    db.Employee.findOneAndUpdate({_id: req.params.id}, {$push: {othersRequests: req.body.othersRequests}})
+        // Then send Updated Employee back to client
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the err to the client  instead
+        .catch(err => res.status(422).json(err));
+};
 module.exports = {
     createEmployee,
     updateEmployee,
@@ -187,5 +195,6 @@ module.exports = {
     getAllEmployeesUnderManager,
     createRequest,
     updateMyRequests,
+    updateOthersRequests,
     deleteRequest,
 };

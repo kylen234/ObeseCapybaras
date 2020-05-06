@@ -60,7 +60,7 @@ class RequestEvaluations extends Component {
     handleButtonClick(id){
         let myid = getCookie('id');
         axios.post(`http://localhost:3000/collection2/updateMyRequests/`+myid, {
-                othersRequests : {
+                yourRequests : {
                     author : myid,
                     target : id,
             }
@@ -70,7 +70,7 @@ class RequestEvaluations extends Component {
                     console.log(response);
                 })
         axios.post(`http://localhost:3000/collection2/updateOthersRequests/`+id, {
-            yourRequests : {
+            othersRequests : {
                 author : myid,
                 target : id,
             }
