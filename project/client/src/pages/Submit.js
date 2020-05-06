@@ -11,6 +11,7 @@ import {
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import axios from "axios";
+import { getCookie, setCookie } from "../utils/cookies";
 
 const Styles = styled.div`
 .jumbo {
@@ -35,7 +36,11 @@ const Styles = styled.div`
 class Submit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = {
+      value: "",
+    };
+    console.log("HERE");
+    console.log(this.state.request);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,6 +54,38 @@ class Submit extends React.Component {
     alert("Evaluation submitted: " + this.state.value);
     event.preventDefault();
 
+    let target = this.props.request;
+    console.log(target.target);
+    axios
+      .put(
+        `http://localhost:3000/collection2/updateEmployee/` + target.target,
+        {
+          personalReviews: {
+            author: getCookie("id"),
+            target: target.target,
+            description: this.state.value,
+          },
+        }
+      )
+      .then((response) => {
+        // If data comes back with a CastError, send error message to client
+        console.log(response);
+      });
+    axios
+      .delete(
+        `http://localhost:3000/collection2/deleteRequest/` + getCookie("id"),
+        {
+          othersRequests: {
+            author: getCookie("id"),
+            target: target._id,
+          },
+        }
+      )
+      .then((response) => {
+        // If data comes back with a CastError, send error message to client
+        console.log(response);
+      });
+
     // We'll put the info
   }
 
@@ -60,12 +97,9 @@ class Submit extends React.Component {
             <Jumbo fluid className="jumbo">
               <div className="overlay"> </div>
               <Container>
-                <Breadcrumb>
-                  <Breadcrumb.Item href="../ReviewRequest">
-                    ReviewRequest
-                  </Breadcrumb.Item>
-                  <BreadcrumbItem active>Submit</BreadcrumbItem>
-                </Breadcrumb>
+                <Button variant="danger" href="/ReviewRequest">
+                  Back
+                </Button>
                 <h1 align={"center"}>
                   <form onSubmit={this.handleSubmit} align={"center"}>
                     <h2 align={"center"}>
@@ -112,6 +146,7 @@ class Submit extends React.Component {
                       type="submit"
                       value="Submit"
                       bsSize="small"
+                      onClick={this.handleSubmit}
                     >
                       Submit
                     </Button>

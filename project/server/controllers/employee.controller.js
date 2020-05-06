@@ -71,7 +71,7 @@ createEmployee = (req, res) => {
 
 updateEmployee = (req, res) => {
     // Find Employee by ID and update personalReviews to req.body.personalReviews
-    db.Employee.findOneAndUpdate({_id: req.params.id}, {$set: { personalReviews: req.body.personalReviews}}, {new: true})
+    db.Employee.findOneAndUpdate({_id: req.params.id}, {$push: { personalReviews: req.body.personalReviews}}, {new: true})
         // Then send Updated Employee back to client
         .then(Employee => res.json(Employee))
         // If an error occurs, send the err to the client  instead
@@ -164,7 +164,15 @@ updateMyRequests = (req, res) => {
         .then(Employee => res.json(Employee))
         // If an error occurs, send the err to the client  instead
         .catch(err => res.status(422).json(err));
-}
+};
+deleteRequest = (req, res) => {
+    // Deletes Specific Employee based upon unique ID
+    db.Employee.update({_id: req.params.id}, {$pull: {othersRequests: { target: req.params.id}}})
+        // Then send Updated Employee back to client
+        .then(Employee => res.json(Employee))
+        // If an error occurs, send the err to the client  instead
+        .catch(err => res.status(422).json(err));
+};
 updateOthersRequests = (req, res) => {
     // Find Employee by ID and update yourRequests to req.body.yourRequests
     db.Employee.findOneAndUpdate({_id: req.params.id}, {$push: {othersRequests: req.body.othersRequests}})
@@ -172,8 +180,7 @@ updateOthersRequests = (req, res) => {
         .then(Employee => res.json(Employee))
         // If an error occurs, send the err to the client  instead
         .catch(err => res.status(422).json(err));
-}
-
+};
 module.exports = {
     createEmployee,
     updateEmployee,
@@ -189,4 +196,5 @@ module.exports = {
     createRequest,
     updateMyRequests,
     updateOthersRequests,
+    deleteRequest,
 };

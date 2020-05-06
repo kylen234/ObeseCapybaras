@@ -144,7 +144,7 @@ class ManagerView extends Component {
           <Button variant="success" onClick={this.back}>
             Back
           </Button>
-          <h1 id="title">Your Direct Reports</h1>
+          <h1 id="title">Direct Report</h1>
           <table id="evaluations">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>

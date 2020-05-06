@@ -10,31 +10,29 @@ import axios from "axios";
 import EvaluationTable from "../pages/ViewEvaluations";
 import { loginUserAction } from "../actions/authenticationActions";
 import { Redirect } from "react-router";
+import Submit from "../pages/Submit";
 
 class ReviewRequest extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      employees: [],
-      viewingEmployees: false,
-      otherReviews: [],
+      acceptingRequest: false,
+      requests: [],
+      currentRequest: "",
+      name: "",
     };
   }
 
   componentDidMount() {
     axios
-      .get(`http://localhost:3000/collection2/getEmployeesUnderManager`, {
+      .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
         params: {
           id: getCookie("id"),
-          companyId: getCookie("companyId"),
-          employeeId: getCookie("employeeId"),
-          managerId: getCookie("managerId"),
         },
       })
       .then((response) => {
         // If data comes back with a CastError, send error message to client
-        this.setState({ employees: response.data });
-        console.log(response);
+        this.setState({ requests: response.data.othersRequests });
         return response;
       })
       .then((json) => {
@@ -42,43 +40,61 @@ class ReviewRequest extends Component {
       });
   }
 
-  renderManagerTable() {
-    return this.state.employees.map((employee) => {
-      const {
-        firstName,
-        lastName,
-        companyId,
-        positionTitle,
-        employeeId,
-        email,
-        _id,
-      } = employee; //destructuring
-      console.log(employee.outgoingReviews);
+  decline(id)
+  {
+    axios
+        .delete(
+            `http://localhost:3000/collection2/deleteRequest/` + getCookie("id"),
+            {
+              yourRequests: {
+                author: id,
+              },
+            }
+        )
+        .then((response) => {
+          // If data comes back with a CastError, send error message to client
+          console.log(response);
+        });
+    axios
+        .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
+          params: {
+            id: getCookie("id"),
+          },
+        })
+        .then((response) => {
+          // If data comes back with a CastError, send error message to client
+          this.setState({ requests: response.data.othersRequests });
+          return response;
+        })
+        .then((json) => {
+          return json;
+        });
+  }
+
+  renderRequestTable() {
+    return this.state.requests.map((request) => {
+      const { firstName, lastName, _id, author } = request; //destructuring
+      let a = firstName + " " + lastName;
       return (
-        <tr key={firstName}>
+        <tr key={_id}>
           <td>
-            <div>
-              {firstName} {lastName}, {positionTitle}
-            </div>
-            <div>{email}</div>
+            <div>{a}</div>
           </td>
           <td>
             <div>
               <Button
                 id="employee"
-                value={employee}
+                value={request}
                 variant="success"
                 align={"center"}
                 onClick={this.acceptRequest}
               >
                 Accept
-              </Button>
-              <br></br>
+              </Button>{" "}
               <Button
-                variant="danger"
-                align={"center"}
-                //</div>onClick={this.acceptRequest}
-              >
+                  onClick={() => this.decline(author)}
+                  variant="danger"
+                  align={"center"}>
                 Decline
               </Button>
             </div>
@@ -87,20 +103,30 @@ class ReviewRequest extends Component {
       );
     });
   }
-  renderEmployeeTable() {
-    return this.state.otherReviews.map((employee) => {
-      const { email, description, author } = employee; //destructuring
-      return (
-        <tr key={email}>
-          <td>
-            <div>{email}</div>
-            <div>{author}</div>
-          </td>
-          <td>
-            <div>{description}</div>
-          </td>
-        </tr>
-      );
+
+  renderSubmit() {
+    // return this.state.otherReviews.map((employee) => {
+    //   const { email, description, author } = employee; //destructuring
+    //   return (
+    //     <tr key={email}>
+    //       <td>
+    //         <div>{email}</div>
+    //         <div>{author}</div>
+    //       </td>
+    //       <td>
+    //         <div>{description}</div>
+    //       </td>
+    //     </tr>
+    //   );
+    // });
+    return <Submit request={this.state.currentRequest} />;
+  }
+
+  getName(id) {
+    return axios.get(`http://localhost:3000/collection2/getEmployee/` + id, {
+      params: {
+        id: id,
+      },
     });
   }
 
@@ -108,8 +134,8 @@ class ReviewRequest extends Component {
     event.preventDefault();
 
     let employee = event.target;
-    setCookie('viewEmployee', employee, 1000);
-    console.log(employee);
+    this.state.currentRequest = Object.values(employee)[1].value;
+    this.setState({ acceptingRequest: true });
   };
 
   renderTableHeader() {
@@ -120,42 +146,35 @@ class ReviewRequest extends Component {
   }
 
   back = (event) => {
-    // this.setState({viewingEmployees: false});
-    // this.forceUpdate();
     event.preventDefault();
 
-    this.setState({ viewingEmployees: false });
-    //console.log(this.state.viewingEmployees);
-    //let employee = event.target;
-    //console.log(employee);
+    this.setState({ acceptingRequest: false });
   };
 
   render() {
-    if (this.state.viewingEmployees === false) {
+    if (this.state.acceptingRequest === false) {
       return (
         <div id="root">
           <h1 id="title">Requests</h1>
           <table id="evaluations">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
-              {this.renderManagerTable()}
+              {this.renderRequestTable()}
             </tbody>
           </table>
         </div>
       );
-    } else if (this.state.viewingEmployees === true) {
+    } else if (this.state.acceptingRequest === true) {
       return (
         <div id="root">
-          <Button variant="success" onClick={this.back}>
-            Back
-          </Button>
-          <h1 id="title">Your Direct Reports</h1>
+          {this.renderSubmit()}
+          {/* <h1 id="title">Your Direct Reports</h1>
           <table id="evaluations">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
-              {this.renderEmployeeTable()}
+              {this.renderSubmit()}
             </tbody>
-          </table>
+          </table> */}
         </div>
       );
     }
