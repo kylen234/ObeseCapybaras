@@ -1,16 +1,22 @@
 import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "react-bootstrap";
-import { Jumbotron as Jumbo, Container } from "react-bootstrap";
+import {
+  Jumbotron as Jumbo,
+  Container,
+  Form,
+  FormControl,
+  FormGroup,
+  Button,
+} from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
+import axios from "axios";
 
 const Styles = styled.div`
 .jumbo {
-    background-color: #696;
+    background-color: #4CAF50;
     background-size: cover;
     color: #fff;
-    height 1000px;
-    width 1000px;
     postion: relative;
     z-index: -2:
 
@@ -42,6 +48,8 @@ class Submit extends React.Component {
   handleSubmit(event) {
     alert("Evaluation submitted: " + this.state.value);
     event.preventDefault();
+
+    // We'll put the info
   }
 
   render() {
@@ -53,15 +61,15 @@ class Submit extends React.Component {
               <div className="overlay"> </div>
               <Container>
                 <Breadcrumb>
-                  <Breadcrumb.Item href="../RequestEvaluations">
-                    RequestEvaluations
+                  <Breadcrumb.Item href="../ReviewRequest">
+                    ReviewRequest
                   </Breadcrumb.Item>
                   <BreadcrumbItem active>Submit</BreadcrumbItem>
                 </Breadcrumb>
                 <h1 align={"center"}>
                   <form onSubmit={this.handleSubmit} align={"center"}>
                     <h2 align={"center"}>
-                      <label>
+                      {/*
                         <h3
                           style={{
                             color: "#000",
@@ -73,26 +81,44 @@ class Submit extends React.Component {
                         >
                           Evaluation:
                         </h3>
-                        <div>
-                          Courtesy of{" "}
-                          <img
-                            src={logo}
-                            style={{ height: 60, width: 60 }}
-                            img
+                        */}
+                      <div>
+                        Courtesy of{" "}
+                        <img src={logo} style={{ height: 60, width: 60 }} img />
+                      </div>
+                      <div>
+                        <Form>
+                          <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Evaluation</Form.Label>
+                            <Form.Control
+                              as="textarea"
+                              placeholder="Your Review..."
+                              rows="10"
+                              value={this.state.value}
+                              onChange={this.handleChange}
+                            />
+                          </Form.Group>
+                        </Form>
+                        {/*
+                          <textarea
+                              rows={10}
+                              cols={30}
+                              placeholder="Your Review..."
+                              value={this.state.value}
+                              onChange={this.handleChange}
+                              align={"center"}
                           />
-                        </div>
-                        <textarea
-                          rows="10"
-                          placeholder="Your Review..."
-                          value={this.state.value}
-                          onChange={this.handleChange}
-                          align={"center"}
-                        ></textarea>
-                      </label>
+                          */}
+                      </div>
                     </h2>
-                    <button type="submit" value="Submit" align={"center"}>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      value="Submit"
+                      bsSize="small"
+                    >
                       Submit
-                    </button>
+                    </Button>
                   </form>
                 </h1>
               </Container>
