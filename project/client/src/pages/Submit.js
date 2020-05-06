@@ -83,10 +83,6 @@ class Submit extends React.Component {
                         </h3>
                         */}
                       <div>
-                        Courtesy of{" "}
-                        <img src={logo} style={{ height: 60, width: 60 }} img />
-                      </div>
-                      <div>
                         <Form>
                           <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Evaluation</Form.Label>
