@@ -31,7 +31,7 @@ class ReviewRequest extends Component {
       })
       .then((response) => {
         // If data comes back with a CastError, send error message to client
-        this.setState({ requests: response.data.yourRequests });
+        this.setState({ requests: response.data.othersRequests });
         return response;
       })
       .then((json) => {

@@ -167,7 +167,7 @@ updateMyRequests = (req, res) => {
 };
 deleteRequest = (req, res) => {
     // Deletes Specific Employee based upon unique ID
-    db.Employee.update({_id: req.params.id}, {$pull: {yourRequests: { target: req.params.id}}})
+    db.Employee.update({_id: req.params.id}, {$pull: {othersRequests: { target: req.params.id}}})
         // Then send Updated Employee back to client
         .then(Employee => res.json(Employee))
         // If an error occurs, send the err to the client  instead

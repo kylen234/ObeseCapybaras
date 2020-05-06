@@ -67,8 +67,8 @@ class Submit extends React.Component {
           // If data comes back with a CastError, send error message to client
           console.log(response);
         })
-    axios.delete(`http://localhost:3000/collection2/deleteRequest/` + target.target, {
-      YourRequests : {
+    axios.delete(`http://localhost:3000/collection2/deleteRequest/` + getCookie('id'), {
+      othersRequests : {
         author: getCookie('id'),
         target: target._id,
       }
