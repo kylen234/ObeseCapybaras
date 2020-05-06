@@ -43,11 +43,12 @@ class ReviewRequest extends Component {
   renderRequestTable() {
     return this.state.requests.map((request) => {
       const {
+        firstName,
+        lastName,
         _id,
         author
       } = request; //destructuring
-      this.getName(author);
-      let a = this.state.name;
+      let a = firstName + " " + lastName;
       return (
         <tr key={_id}>
           <td>
@@ -99,20 +100,12 @@ class ReviewRequest extends Component {
   }
 
   getName(id) {
-    axios
+    return axios
       .get(`http://localhost:3000/collection2/getEmployee/` + id, {
         params: {
           id: id,
         },
       })
-      .then((response) => {
-        // If data comes back with a CastError, send error message to client
-        this.setState({ name: response.data.firstName + " " + response.data.lastName });
-        return response;
-      })
-      .then((json) => {
-        return json;
-      });
   }
 
   acceptRequest = (event) => {

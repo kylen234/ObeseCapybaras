@@ -57,12 +57,14 @@ class RequestEvaluations extends Component {
             key={label}
         />
     );
-    handleButtonClick(id){
+    handleButtonClick(id,firstName,lastName){
         let myid = getCookie('id');
         axios.post(`http://localhost:3000/collection2/updateMyRequests/`+myid, {
                 yourRequests : {
                     author : myid,
                     target : id,
+                    firstName : firstName,
+                    lastName : lastName,
             }
         })
                 .then(response => {
@@ -73,6 +75,8 @@ class RequestEvaluations extends Component {
             othersRequests : {
                 author : myid,
                 target : id,
+                firstName : firstName,
+                lastName : lastName,
             }
         })
             .then(response => {
@@ -137,7 +141,7 @@ class RequestEvaluations extends Component {
                         {name}, {positionTitle}
                     </td>
                     <td> 
-                        <Button onClick={() => this.handleButtonClick(employee._id)} variant="success" align={"Center"}>Request Evaluation</Button>
+                        <Button onClick={() => this.handleButtonClick(employee._id,firstName,lastName)} variant="success" align={"Center"}>Request Evaluation</Button>
                     </td>
                 </tr>
             )
