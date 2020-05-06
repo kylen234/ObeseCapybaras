@@ -11,8 +11,9 @@ router.post('/login', EmployeeCtrl.loginUser);
 router.post('/logout', EmployeeCtrl.logoutUser);
 router.get('/getEmployeeByCompany', EmployeeCtrl.getAllEmployeesByCompany);
 router.get('/getEmployeesUnderManager', EmployeeCtrl.getAllEmployeesUnderManager);
-
 router.post('/createRequest/:id', EmployeeCtrl.createRequest);
+router.post('/updateMyRequests/:id', EmployeeCtrl.updateMyRequests);
+router.post('/updateOthersRequests/:id', EmployeeCtrl.updateOthersRequests);
 
 
 module.exports = router;

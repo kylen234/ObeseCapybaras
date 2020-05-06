@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { loginUserAction } from '../actions/authenticationActions';
 import {Redirect} from "react-router-dom";
+import {SearchBar} from "../components";
 import {getCookie, checkCookie, setCookie} from "../utils/cookies";
 
 class MyProfile extends Component {
+
+   renderData(){
+
+   } 
 
     render() {
         console.log(getCookie('token'));
@@ -19,7 +24,11 @@ class MyProfile extends Component {
 
         return (
             <div>
-                <h1>My Profile</h1>
+                <h1 id='title'>My Profile</h1>
+                <p>My Name: {getCookie('name')}</p>
+                <p>My Company: {getCookie('companyName')}</p>
+                <p>My email: {getCookie('email')}</p>
+                <p>Start Date: {getCookie('startDate')}</p>
             </div>
         );
     }

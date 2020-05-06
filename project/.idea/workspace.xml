@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="075eafc7-aace-4233-929d-296e7bc7f7b6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/employee.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/employee.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/employee_model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/employee_model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/MyProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/MyProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/RequestEvaluations.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/RequestEvaluations.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +49,9 @@
       <updated>1585517468196</updated>
       <workItem from="1585517469511" duration="6500000" />
       <workItem from="1587825586941" duration="5764000" />
+      <workItem from="1588534449923" duration="40000" />
+      <workItem from="1588535034306" duration="1216000" />
+      <workItem from="1588699706177" duration="18141000" />
     </task>
     <servers />
   </component>
@@ -64,13 +66,14 @@
       <screen x="0" y="23" width="1280" height="726" />
     </state>
     <state x="480" y="51" key="#Inspections/0.23.1280.726@0.23.1280.726" timestamp="1585542246173" />
-    <state x="336" y="164" key="com.intellij.ide.util.TipDialog" timestamp="1587825586961">
+    <state x="336" y="164" key="com.intellij.ide.util.TipDialog" timestamp="1588699706209">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="336" y="164" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1587825586961" />
-    <state x="676" y="73" width="670" height="676" key="search.everywhere.popup" timestamp="1585535456704">
-      <screen x="0" y="23" width="1280" height="726" />
+    <state x="336" y="164" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1588699706209" />
+    <state x="677" y="48" width="672" height="634" key="search.everywhere.popup" timestamp="1588708709617">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="677" y="48" width="672" height="634" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1588708709617" />
     <state x="676" y="73" width="670" height="676" key="search.everywhere.popup/0.23.1280.726@0.23.1280.726" timestamp="1585535456704" />
   </component>
   <component name="XDebuggerManager">
