@@ -10,31 +10,29 @@ import axios from "axios";
 import EvaluationTable from "../pages/ViewEvaluations";
 import { loginUserAction } from "../actions/authenticationActions";
 import { Redirect } from "react-router";
+import Submit from "../pages/Submit";
 
 class ReviewRequest extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       employees: [],
-      viewingEmployees: false,
-      otherReviews: [],
+      acceptingRequest: false,
+      requests: [],
+
     };
   }
 
   componentDidMount() {
     axios
-      .get(`http://localhost:3000/collection2/getEmployeesUnderManager`, {
+      .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
         params: {
           id: getCookie("id"),
-          companyId: getCookie("companyId"),
-          employeeId: getCookie("employeeId"),
-          managerId: getCookie("managerId"),
         },
       })
       .then((response) => {
         // If data comes back with a CastError, send error message to client
-        this.setState({ employees: response.data });
-        console.log(response);
+        this.setState({ requests: response.data.yourRequests });
         return response;
       })
       .then((json) => {
@@ -42,23 +40,24 @@ class ReviewRequest extends Component {
       });
   }
 
-  renderManagerTable() {
-    return this.state.employees.map((employee) => {
+  renderRequestTable() {
+    return this.state.requests.map((employee) => {
       const {
-        firstName,
-        lastName,
-        companyId,
-        positionTitle,
-        employeeId,
+        // firstName,
+        // lastName,
+        // companyId,
+        // positionTitle,
+        // employeeId,
         email,
         _id,
+        author
       } = employee; //destructuring
       console.log(employee.outgoingReviews);
       return (
-        <tr key={firstName}>
+        <tr key={_id}>
           <td>
             <div>
-              {firstName} {lastName}, {positionTitle}
+              {author}
             </div>
             <div>{email}</div>
           </td>
@@ -77,7 +76,6 @@ class ReviewRequest extends Component {
               <Button
                 variant="danger"
                 align={"center"}
-                //</div>onClick={this.acceptRequest}
               >
                 Decline
               </Button>
@@ -87,29 +85,33 @@ class ReviewRequest extends Component {
       );
     });
   }
-  renderEmployeeTable() {
-    return this.state.otherReviews.map((employee) => {
-      const { email, description, author } = employee; //destructuring
-      return (
-        <tr key={email}>
-          <td>
-            <div>{email}</div>
-            <div>{author}</div>
-          </td>
-          <td>
-            <div>{description}</div>
-          </td>
-        </tr>
-      );
-    });
+
+  renderSubmit() {
+    // return this.state.otherReviews.map((employee) => {
+    //   const { email, description, author } = employee; //destructuring
+    //   return (
+    //     <tr key={email}>
+    //       <td>
+    //         <div>{email}</div>
+    //         <div>{author}</div>
+    //       </td>
+    //       <td>
+    //         <div>{description}</div>
+    //       </td>
+    //     </tr>
+    //   );
+    // });
+    return <Submit/>;
   }
 
   acceptRequest = (event) => {
     event.preventDefault();
 
+    this.setState({ acceptingRequest: true });
+
     let employee = event.target;
-    setCookie('viewEmployee', employee, 1000);
-    console.log(employee);
+    setCookie('currentRequest', Object.values(employee)[1].value, 1000);
+    console.log(getCookie("currentRequest"));
   };
 
   renderTableHeader() {
@@ -124,38 +126,39 @@ class ReviewRequest extends Component {
     // this.forceUpdate();
     event.preventDefault();
 
-    this.setState({ viewingEmployees: false });
+    this.setState({ acceptingRequest: false });
     //console.log(this.state.viewingEmployees);
     //let employee = event.target;
     //console.log(employee);
   };
 
   render() {
-    if (this.state.viewingEmployees === false) {
+    if (this.state.acceptingRequest === false) {
       return (
         <div id="root">
           <h1 id="title">Requests</h1>
           <table id="evaluations">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
-              {this.renderManagerTable()}
+              {this.renderRequestTable()}
             </tbody>
           </table>
         </div>
       );
-    } else if (this.state.viewingEmployees === true) {
+    } else if (this.state.acceptingRequest === true) {
       return (
         <div id="root">
           <Button variant="success" onClick={this.back}>
             Back
           </Button>
-          <h1 id="title">Your Direct Reports</h1>
+          {this.renderSubmit()}
+          {/* <h1 id="title">Your Direct Reports</h1>
           <table id="evaluations">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
-              {this.renderEmployeeTable()}
+              {this.renderSubmit()}
             </tbody>
-          </table>
+          </table> */}
         </div>
       );
     }

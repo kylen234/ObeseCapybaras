@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import {Logo} from "../components"
 import MyProfile from "./MyProfile";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { loginUserAction } from '../actions/authenticationActions';
@@ -81,7 +80,6 @@ class Login extends Component {
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col s8 offset-s2">
                         <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                            <h2><Logo/>CapyVal</h2>
                             <h4>
                                 <b>Login</b> below
                             </h4>

@@ -11,6 +11,7 @@ import {
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import axios from "axios";
+import { getCookie, setCookie } from "../utils/cookies";
 
 const Styles = styled.div`
 .jumbo {
@@ -49,6 +50,15 @@ class Submit extends React.Component {
     alert("Evaluation submitted: " + this.state.value);
     event.preventDefault();
 
+    let target = getCookie("currentRequest");
+    axios
+      .post('http://localhost:3000/review/createReview/' + target._id, {
+        params : {
+          id: target._id,
+          review: this.state.value
+        }
+      })
+      
     // We'll put the info
   }
 
@@ -116,6 +126,7 @@ class Submit extends React.Component {
                       type="submit"
                       value="Submit"
                       bsSize="small"
+                      onClick={this.handleSubmit}
                     >
                       Submit
                     </Button>

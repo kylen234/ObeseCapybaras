@@ -87,38 +87,38 @@ class RequestEvaluations extends Component {
       }
 
     renderTableData() {
-        return this.state.employees.map((employee) => {
-            const {firstName, lastName, positionTitle} = employee; //destructuring
-            let name = firstName + " " + lastName;
-            var i;
-            let x = getCookie('yourRequests');
-            for(i=0; i<x.length;i++) {
-                console.log(""+employee._id);
-                if (employee._id === x[i].target) {
-                    return (
-                        <tr key={name}>
-                            <td>
-                                {name}, {positionTitle}
-                            </td>
-                            <td>
-                                <Button onClick={() => this.CancelRequest()} variant="success"
-                                        align={"Center"}>Cancel Request</Button>
-                            </td>
-                        </tr>
-                    )
-                }
-            }
-                    return (
-                        <tr key={name}>
-                            <td>
-                                {name}, {positionTitle}
-                            </td>
-                            <td>
-                                <Button onClick={() => this.handleButtonClick(employee._id)} variant="success"
-                                        align={"Center"}>Request Evaluation</Button>
-                            </td>
-                        </tr>
-                    )
+        // return this.state.employees.map((employee) => {
+        //     const {firstName, lastName, positionTitle} = employee; //destructuring
+        //     let name = firstName + " " + lastName;
+        //     var i;
+        //     let x = getCookie('yourRequests');
+        //     for(i=0; i<x.length;i++) {
+        //         console.log(""+employee._id);
+        //         if (employee._id === x[i].target) {
+        //             return (
+        //                 <tr key={name}>
+        //                     <td>
+        //                         {name}, {positionTitle}
+        //                     </td>
+        //                     <td>
+        //                         <Button onClick={() => this.CancelRequest()} variant="success"
+        //                                 align={"Center"}>Cancel Request</Button>
+        //                     </td>
+        //                 </tr>
+        //             )
+        //         }
+        //     }
+        //             return (
+        //                 <tr key={name}>
+        //                     <td>
+        //                         {name}, {positionTitle}
+        //                     </td>
+        //                     <td>
+        //                         <Button onClick={() => this.handleButtonClick(employee._id)} variant="success"
+        //                                 align={"Center"}>Request Evaluation</Button>
+        //                     </td>
+        //                 </tr>
+        //             )
         return this.state.employees.filter((employee)=>{
             if(this.state.search == null)
                 return employee
@@ -136,20 +136,13 @@ class RequestEvaluations extends Component {
                     <td>
                         {name}, {positionTitle}
                     </td>
-                    <td>
-                        <form onSubmit={this.handleFormSubmit}>
-                            {this.createCheckbox()}
-                        </form>
-
-                      
-                        <Button variant="success" align={"center"}>Request</Button>{' '}
-
+                    <td> 
+                        <Button onClick={() => this.handleButtonClick(employee._id)} variant="success" align={"Center"}>Request Evaluation</Button>
                     </td>
                 </tr>
             )
         });
 
-    })
     }
 
     renderTableHeader() {
