@@ -35,39 +35,21 @@ class Login extends Component {
         document.title = 'React Login';
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.response.login.hasOwnProperty('response')) {
-            console.log(nextProps.response.login.response.data);
-            if (nextProps.response.login.response.data.success !== prevState.isSuccess) {
-                setCookie('token', nextProps.response.login.response.data.token, 1000);
-                setCookie('id', nextProps.response.login.response.data._id, 1000);
-                setCookie('companyId', nextProps.response.login.response.data.companyId, 1000);
-                setCookie('companyName', nextProps.response.login.response.data.companyName, 1000);
-                setCookie('employeeId', nextProps.response.login.response.data.employeeId, 1000);
-                setCookie('email', nextProps.response.login.response.data.email, 1000);
-                setCookie('name', nextProps.response.login.response.data.name, 1000);
-                setCookie('startDate', nextProps.response.login.response.data.startDate, 1000);
-                setCookie('outgoingReviews', nextProps.response.login.response.data.outgoingReviews, 1000);
-                setCookie('personalReviews', nextProps.response.login.response.data.personalReviews, 1000);
-
-                return {
-                    isSuccess: nextProps.response.login.response.data.success,
-                    message: "SUCCESS"
-                };
-            } else {
-                return {
-                    isSuccess: false,
-                    message: "FAILURE"
-                };
-            }
-        } else {
-            return null;
-        }
-    }
-
     render() {
-        console.log(this.state.isSuccess);
-
+        if (this.props.response.login.hasOwnProperty('response')) {
+            this.setState({isSuccess: this.props.response.login.response.data.success});
+            console.log(this.state.isSuccess);
+            setCookie('token', this.props.response.login.response.data.token, 1000);
+            setCookie('id', this.props.response.login.response.data._id, 1000);
+            setCookie('companyId', this.props.response.login.response.data.companyId, 1000);
+            setCookie('companyName', this.props.response.login.response.data.companyName, 1000);
+            setCookie('employeeId', this.props.response.login.response.data.employeeId, 1000);
+            setCookie('email', this.props.response.login.response.data.email, 1000);
+            setCookie('name', this.props.response.login.response.data.name, 1000);
+            setCookie('startDate', this.props.response.login.response.data.startDate, 1000);
+            setCookie('outgoingReviews', this.props.response.login.response.data.outgoingReviews, 1000);
+            setCookie('personalReviews', this.props.response.login.response.data.personalReviews, 1000);
+        }
         if(this.state.isSuccess) {
             return <Redirect to='./MyProfile'/>;
         }

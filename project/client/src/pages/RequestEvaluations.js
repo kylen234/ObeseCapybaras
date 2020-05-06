@@ -125,7 +125,7 @@ class RequestEvaluations extends Component {
         //             )
         return this.state.employees.filter((employee)=>{
             if(this.state.search == null)
-                return employee
+                return employee;
             else if(employee.firstName.toLowerCase().includes(this.state.search.toLowerCase())
                 || employee.lastName.toLowerCase().includes(this.state.search.toLowerCase())
                 || employee.positionTitle.toLowerCase().includes(this.state.search.toLowerCase())){

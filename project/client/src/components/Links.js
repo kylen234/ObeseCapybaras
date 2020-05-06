@@ -47,7 +47,7 @@ class Links extends Component {
                         </Item>
                         <Item>
                             <Link to="/ReviewRequest" style={{color: '#FFF'}} className="nav-link">
-                                Review Evaluations
+                                Review Requests
                             </Link>
                         </Item>
                         <Item>

@@ -26,13 +26,13 @@ const Main = withRouter(({ location }) => {
         <Route exact path="/" component={Login} />
             <Wrapper>
                 <Switch>
-                    <Route path='/submit-view' component={Submit} />
-                    <Route path='/RequestEvaluations' component={RequestEvaluations} />
-                    <Route path='/ReviewRequest' component={ReviewRequest} />
-                    <Route path='/ViewEvaluations' component={ViewEvaluations} />
-                    <Route path='/ManagerView' component={ManagerView} />
-                    <Route path='/MyProfile' component={MyProfile} />
-                    <Route path='/logout' component={LogoutComponent} />
+                    <PrivateRoute path='/submit-view' component={Submit} />
+                    <PrivateRoute path='/RequestEvaluations' component={RequestEvaluations} />
+                    <PrivateRoute path='/ReviewRequest' component={ReviewRequest} />
+                    <PrivateRoute path='/ViewEvaluations' component={ViewEvaluations} />
+                    <PrivateRoute path='/ManagerView' component={ManagerView} />
+                    <PrivateRoute path='/MyProfile' component={MyProfile} />
+                    <PrivateRoute path='/logout' component={LogoutComponent} />
                 </Switch>
             </Wrapper>
         </div>
