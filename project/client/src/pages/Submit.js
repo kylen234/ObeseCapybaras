@@ -36,7 +36,11 @@ const Styles = styled.div`
 class Submit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { 
+      value: "",
+    };
+    console.log("HERE");
+    console.log(this.state.request);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,13 +54,13 @@ class Submit extends React.Component {
     alert("Evaluation submitted: " + this.state.value);
     event.preventDefault();
 
-    let target = getCookie("currentRequest");
+    let target = this.props.request;
+    console.log("target");
+    console.log(target.value);
     axios
-      .post('http://localhost:3000/review/createReview/' + target._id, {
-        params : {
+      .post('http://localhost:3000/review/createReview/' + target._id, { 
           id: target._id,
           review: this.state.value
-        }
       })
       
     // We'll put the info

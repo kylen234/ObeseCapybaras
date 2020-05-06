@@ -16,10 +16,9 @@ class ReviewRequest extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
-      employees: [],
       acceptingRequest: false,
       requests: [],
-
+      currentRequest: ""
     };
   }
 
@@ -101,17 +100,15 @@ class ReviewRequest extends Component {
     //     </tr>
     //   );
     // });
-    return <Submit/>;
+    return <Submit request={this.state.currentRequest}/>;
   }
 
   acceptRequest = (event) => {
     event.preventDefault();
 
-    this.setState({ acceptingRequest: true });
-
     let employee = event.target;
-    setCookie('currentRequest', Object.values(employee)[1].value, 1000);
-    console.log(getCookie("currentRequest"));
+    this.state.currentRequest = Object.values(employee)[1].value;
+    this.setState({ acceptingRequest: true });
   };
 
   renderTableHeader() {
@@ -122,14 +119,11 @@ class ReviewRequest extends Component {
   }
 
   back = (event) => {
-    // this.setState({viewingEmployees: false});
-    // this.forceUpdate();
+
     event.preventDefault();
 
     this.setState({ acceptingRequest: false });
-    //console.log(this.state.viewingEmployees);
-    //let employee = event.target;
-    //console.log(employee);
+
   };
 
   render() {
