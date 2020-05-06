@@ -42,19 +42,12 @@ class ReviewRequest extends Component {
 
   renderRequestTable() {
     return this.state.requests.map((request) => {
-      const {
-        firstName,
-        lastName,
-        _id,
-        author
-      } = request; //destructuring
+      const { firstName, lastName, _id, author } = request; //destructuring
       let a = firstName + " " + lastName;
       return (
         <tr key={_id}>
           <td>
-            <div>
-              {a}
-            </div>
+            <div>{a}</div>
           </td>
           <td>
             <div>
@@ -66,12 +59,8 @@ class ReviewRequest extends Component {
                 onClick={this.acceptRequest}
               >
                 Accept
-              </Button>
-              <br></br>
-              <Button
-                variant="danger"
-                align={"center"}
-              >
+              </Button>{" "}
+              <Button variant="danger" align={"center"}>
                 Decline
               </Button>
             </div>
@@ -96,16 +85,15 @@ class ReviewRequest extends Component {
     //     </tr>
     //   );
     // });
-    return <Submit request={this.state.currentRequest}/>;
+    return <Submit request={this.state.currentRequest} />;
   }
 
   getName(id) {
-    return axios
-      .get(`http://localhost:3000/collection2/getEmployee/` + id, {
-        params: {
-          id: id,
-        },
-      })
+    return axios.get(`http://localhost:3000/collection2/getEmployee/` + id, {
+      params: {
+        id: id,
+      },
+    });
   }
 
   acceptRequest = (event) => {
@@ -124,11 +112,9 @@ class ReviewRequest extends Component {
   }
 
   back = (event) => {
-
     event.preventDefault();
 
     this.setState({ acceptingRequest: false });
-
   };
 
   render() {
@@ -147,9 +133,6 @@ class ReviewRequest extends Component {
     } else if (this.state.acceptingRequest === true) {
       return (
         <div id="root">
-          <Button variant="success" onClick={this.back}>
-            Back
-          </Button>
           {this.renderSubmit()}
           {/* <h1 id="title">Your Direct Reports</h1>
           <table id="evaluations">
