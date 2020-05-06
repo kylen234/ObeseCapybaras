@@ -11,6 +11,7 @@ class EvaluationTable extends Component {
         super(props);
         this.state = {
             id: getCookie('id'),
+            name: "",
             companyId: getCookie('companyId'),
             evaluations: []
         };
@@ -29,12 +30,29 @@ class EvaluationTable extends Component {
             });
     }
 
+    getName(id) {
+        axios
+            .get(`http://localhost:3000/collection2/getEmployee/` + id, {
+                params: {
+                    id: id,
+                },
+            })
+            .then((response) => {
+                // If data comes back with a CastError, send error message to client
+                this.setState({ name: response.data.firstName + " " + response.data.lastName });
+                return response;
+            })
+            .then((json) => {
+                return json;
+            });
+    }
     renderTableData() {
         return this.state.evaluations.map((evaluation) => {
             const { _id, author, description, timestamp } = evaluation //destructuring
+            let x = this.getName(author);
             return (
                 <tr key={_id}>
-                    <td>{author}</td>
+                    <td>{this.state.name}</td>
                     <td>{description}</td>
                     <td>{timestamp}</td>
                 </tr>
