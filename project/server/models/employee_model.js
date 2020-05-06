@@ -13,6 +13,7 @@ const reviewSchema = new Schema({
 const requestEvaluationsSchema = new Schema({
     author: { type: Schema.Types.ObjectID, ref: "Employee"},
     target: { type: Schema.Types.ObjectID, ref: "Employee"},
+
     accepted: {type:Boolean, default: false},
 
     timestamp: {type: Date, default: new Date()}

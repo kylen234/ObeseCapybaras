@@ -58,11 +58,21 @@ class Submit extends React.Component {
     console.log(target.target);
     axios.put(`http://localhost:3000/collection2/updateEmployee/` + target.target, {
           personalReviews : {
-            author: target._id,
+            author: getCookie("id"),
             target: target._id,
             description: this.state.value,
           }
       })
+        .then(response => {
+          // If data comes back with a CastError, send error message to client
+          console.log(response);
+        })
+    axios.delete(`http://localhost:3000/collection2/deleteRequest/` + target.target, {
+      YourRequests : {
+        author: getCookie('id'),
+        target: target._id,
+      }
+    })
         .then(response => {
           // If data comes back with a CastError, send error message to client
           console.log(response);
