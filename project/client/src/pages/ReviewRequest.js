@@ -18,7 +18,8 @@ class ReviewRequest extends Component {
     this.state = {
       acceptingRequest: false,
       requests: [],
-      currentRequest: ""
+      currentRequest: "",
+      name: "",
     };
   }
 
@@ -31,7 +32,7 @@ class ReviewRequest extends Component {
       })
       .then((response) => {
         // If data comes back with a CastError, send error message to client
-        this.setState({ requests: response.data.yourRequests });
+        this.setState({ requests: response.data.othersRequests });
         return response;
       })
       .then((json) => {
@@ -40,31 +41,25 @@ class ReviewRequest extends Component {
   }
 
   renderRequestTable() {
-    return this.state.requests.map((employee) => {
+    return this.state.requests.map((request) => {
       const {
-        // firstName,
-        // lastName,
-        // companyId,
-        // positionTitle,
-        // employeeId,
-        email,
         _id,
         author
-      } = employee; //destructuring
-      console.log(employee.outgoingReviews);
+      } = request; //destructuring
+      this.getName(author);
+      let a = this.state.name;
       return (
         <tr key={_id}>
           <td>
             <div>
-              {author}
+              {a}
             </div>
-            <div>{email}</div>
           </td>
           <td>
             <div>
               <Button
                 id="employee"
-                value={employee}
+                value={request}
                 variant="success"
                 align={"center"}
                 onClick={this.acceptRequest}
@@ -101,6 +96,23 @@ class ReviewRequest extends Component {
     //   );
     // });
     return <Submit request={this.state.currentRequest}/>;
+  }
+
+  getName(id) {
+    axios
+      .get(`http://localhost:3000/collection2/getEmployee/` + id, {
+        params: {
+          id: id,
+        },
+      })
+      .then((response) => {
+        // If data comes back with a CastError, send error message to client
+        this.setState({ name: response.data.firstName + " " + response.data.lastName });
+        return response;
+      })
+      .then((json) => {
+        return json;
+      });
   }
 
   acceptRequest = (event) => {
