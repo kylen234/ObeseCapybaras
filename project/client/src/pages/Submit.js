@@ -59,7 +59,7 @@ class Submit extends React.Component {
     axios.put(`http://localhost:3000/collection2/updateEmployee/` + target.target, {
           personalReviews : {
             author: getCookie("id"),
-            target: target._id,
+            target: target.target,
             description: this.state.value,
           }
       })
