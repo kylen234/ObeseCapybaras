@@ -33,7 +33,7 @@ class Login extends Component {
     };
 
     componentDidMount() {
-        document.title = 'React Login';
+        document.title = 'CapyVal Login';
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
