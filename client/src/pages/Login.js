@@ -57,7 +57,7 @@ class Login extends Component {
         return (
             <div className="container">
                 <Link to='/'/>
-                {(getCookie() !== null) ? <Redirect to='/MyProfile' /> : <Redirect to='/'/>}
+                {(getCookie('token') !== null) ? <Redirect to='/MyProfile' /> : <Redirect to='/'/>}
                 {(!this.props.isSuccess) ? <div className='error'>{this.props.messages}</div> : null}
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col s8 offset-s2">
