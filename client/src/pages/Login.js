@@ -54,9 +54,6 @@ class Login extends Component {
             return <Redirect to='./MyProfile'/>;
         }
 
-        console.log(getCookie('token'));
-
-
         return (
             <div className="container">
                 <Link to='/'/>
