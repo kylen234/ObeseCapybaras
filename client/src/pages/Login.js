@@ -52,8 +52,10 @@ class Login extends Component {
         }
         if(this.state.isSuccess) {
             return <Redirect to='./MyProfile'/>;
+
         }
 
+        console.log(checkCookie());
         return (
             <div className="container">
                 <Link to='/'/>
