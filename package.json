@@ -19,7 +19,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kylen234/ObeseCapybaras/issues"
-  }c
+  },
   "homepage": "https://github.com/kylen234/ObeseCapybaras#readme",
   "devDependencies": {
     "nodemon": "^2.0.3"
