@@ -75,7 +75,9 @@ employeeSchema.pre('save', function(next) {
 employeeSchema.methods.comparePassword = function(pw, cb) {
         // console.log(pw);
         //cb(null, true);
-
+        if(this.password == null) {
+            cb(null, false);
+        }
         if(pw == this.password) {
               cb(null, true);
         } else {
