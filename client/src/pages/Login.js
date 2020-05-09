@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MyProfile from "./MyProfile";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { loginUserAction } from '../actions/authenticationActions';
-import {checkCookie, setCookie, getCookie} from '../utils/cookies';
+import {checkCookie, setCookie} from '../utils/cookies';
 import { connect } from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
@@ -56,7 +56,7 @@ class Login extends Component {
 
         return (
             <div className="container">
-                <!--<Link to='/'/>-->
+                <Link to='/'/>
                 {(checkCookie() !== null) ? <Redirect to='/MyProfile' /> : <Redirect to='/'/>}
                 {(!this.props.isSuccess) ? <div className='error'>{this.props.messages}</div> : null}
                 <div style={{marginTop: "4rem"}} className="row">

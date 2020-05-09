@@ -5,7 +5,7 @@ import MyProfile from "../pages/MyProfile";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route { ...rest } render={props => (
-        checkCookie() !== null ? (
+        getCookie('token') !== null ? (
             <Component { ...props } />
         ) : (
             <Redirect to={{
