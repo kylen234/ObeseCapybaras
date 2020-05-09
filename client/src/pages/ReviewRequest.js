@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "../components/style.css";
-import Button from "react-bootstrap/button";
+import Button from "react-bootstrap";
 import { getCookie, setCookie } from "../utils/cookies";
 import axios from "axios";
 import EvaluationTable from "../pages/ViewEvaluations";
