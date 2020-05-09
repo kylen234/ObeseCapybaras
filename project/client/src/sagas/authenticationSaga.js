@@ -26,6 +26,7 @@ export function* logoutSaga(payload) {
                 .post(`http://localhost:3000/collection2/logout`, payload)
                 .then(response => {
                     // If data comes back with a CastError, send error message to client
+                    console.log(response);
                     return response;
                 }).then(json => {
                 return json;

@@ -4,7 +4,8 @@
   "description": "Server for 320 project",
   "main": "app.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -40,5 +41,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
+  },
+  "engines": {
+    "node": "10.18.0"
   }
+
 }
