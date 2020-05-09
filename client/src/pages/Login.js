@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MyProfile from "./MyProfile";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { loginUserAction } from '../actions/authenticationActions';
-import {checkCookie, setCookie} from '../utils/cookies';
+import {checkCookie, setCookie, getCookie} from '../utils/cookies';
 import { connect } from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
