@@ -78,7 +78,7 @@ employeeSchema.methods.comparePassword = function(pw, cb) {
         if(this.password == null) {
             cb(null, false);
         }
-        if(pw == this.password) {
+        if(pw === this.password) {
               cb(null, true);
         } else {
                 cb(null, false);

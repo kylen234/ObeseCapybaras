@@ -23,7 +23,7 @@ class ManagerView extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:3000/collection2/getEmployeesUnderManager`, {
+      .get(`/collection2/getEmployeesUnderManager`, {
         params: {
           id: getCookie("id"),
           companyId: getCookie("companyId"),
