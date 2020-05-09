@@ -18,7 +18,7 @@ class EvaluationTable extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3000/collection2/getEmployee/` + this.state.id)
+        axios.get(`/collection2/getEmployee/` + this.state.id)
             .then(response => {
                 // If data comes back with a CastError, send error message to client
                 console.log(response.data.personalReviews);
@@ -32,7 +32,7 @@ class EvaluationTable extends Component {
 
     getName(id) {
         axios
-            .get(`http://localhost:3000/collection2/getEmployee/` + id, {
+            .get(`/collection2/getEmployee/` + id, {
                 params: {
                     id: id,
                 },

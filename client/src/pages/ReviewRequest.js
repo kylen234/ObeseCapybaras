@@ -25,7 +25,7 @@ class ReviewRequest extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
+      .get(`/collection2/getEmployee/` + getCookie("id"), {
         params: {
           id: getCookie("id"),
         },
@@ -44,7 +44,7 @@ class ReviewRequest extends Component {
   {
     axios
         .delete(
-            `http://localhost:3000/collection2/deleteRequest/` + getCookie("id"),
+            `/collection2/deleteRequest/` + getCookie("id"),
             {
               yourRequests: {
                 author: id,
@@ -56,7 +56,7 @@ class ReviewRequest extends Component {
           console.log(response);
         });
     axios
-        .get(`http://localhost:3000/collection2/getEmployee/` + getCookie("id"), {
+        .get(`/collection2/getEmployee/` + getCookie("id"), {
           params: {
             id: getCookie("id"),
           },
@@ -123,7 +123,7 @@ class ReviewRequest extends Component {
   }
 
   getName(id) {
-    return axios.get(`http://localhost:3000/collection2/getEmployee/` + id, {
+    return axios.get(`/collection2/getEmployee/` + id, {
       params: {
         id: id,
       },

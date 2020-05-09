@@ -5,7 +5,7 @@ export function* loginSaga(payload) {
     try {
         const response = yield call(() =>
             axios
-            .post(`http://localhost:3000/collection2/login`, payload.user)
+            .post(`/collection2/login`, payload.user)
                 .then(response => {
                 // If data comes back with a CastError, send error message to client
                     return response;
@@ -23,7 +23,7 @@ export function* logoutSaga(payload) {
     try {
         const response = yield call(() =>
             axios
-                .post(`http://localhost:3000/collection2/logout`, payload)
+                .post(`/collection2/logout`, payload)
                 .then(response => {
                     // If data comes back with a CastError, send error message to client
                     console.log(response);

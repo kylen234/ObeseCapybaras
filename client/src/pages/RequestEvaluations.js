@@ -17,7 +17,7 @@ class RequestEvaluations extends Component {
     };
 
     componentDidMount() {
-        axios.get(`http://localhost:3000/collection2/getEmployeeByCompany`, {
+        axios.get(`/collection2/getEmployeeByCompany`, {
             params: {
                 id: getCookie('id'),
                 companyId: getCookie('companyId'),
@@ -59,7 +59,7 @@ class RequestEvaluations extends Component {
     );
     handleButtonClick(id,firstName,lastName){
         let myid = getCookie('id');
-        axios.post(`http://localhost:3000/collection2/updateMyRequests/`+myid, {
+        axios.post(`/collection2/updateMyRequests/`+myid, {
                 yourRequests : {
                     author : myid,
                     target : id,
@@ -71,7 +71,7 @@ class RequestEvaluations extends Component {
                     // If data comes back with a CastError, send error message to client
                     console.log(response);
                 })
-        axios.post(`http://localhost:3000/collection2/updateOthersRequests/`+id, {
+        axios.post(`/collection2/updateOthersRequests/`+id, {
             othersRequests : {
                 author : myid,
                 target : id,

@@ -58,7 +58,7 @@ class Submit extends React.Component {
     console.log(target.target);
     axios
       .put(
-        `http://localhost:3000/collection2/updateEmployee/` + target.target,
+        `/collection2/updateEmployee/` + target.target,
         {
           personalReviews: {
             author: getCookie("id"),
@@ -73,7 +73,7 @@ class Submit extends React.Component {
       });
     axios
       .delete(
-        `http://localhost:3000/collection2/deleteRequest/` + getCookie("id"),
+        `/collection2/deleteRequest/` + getCookie("id"),
         {
           othersRequests: {
             author: getCookie("id"),
