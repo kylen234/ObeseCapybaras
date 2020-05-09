@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -19,7 +19,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kylen234/ObeseCapybaras/issues"
-  },
+  }c
   "homepage": "https://github.com/kylen234/ObeseCapybaras#readme",
   "devDependencies": {
     "nodemon": "^2.0.3"
