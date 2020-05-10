@@ -32,7 +32,7 @@ const Main = withRouter(({ location }) => {
                     <PrivateRoute path='/ViewEvaluations' component={ViewEvaluations} />
                     <PrivateRoute path='/ManagerView' component={ManagerView} />
                     <PrivateRoute path='/MyProfile' component={MyProfile} />
-
+                    <PrivateRoute path='/logout' component={LogoutComponent} />
                 </Switch>
             </Wrapper>
         </div>
@@ -54,7 +54,3 @@ class App extends Component {
 
 
 export default App;
-
-/*
-<PrivateRoute path='/logout' component={LogoutComponent} />
- */
